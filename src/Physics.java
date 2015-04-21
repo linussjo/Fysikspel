@@ -1,13 +1,13 @@
 
 public class Physics {
-	private long gravitation;
+	private double gravitation;
 	
-	public Physics(long gravitation)
+	public Physics(double gravitation)
 	{
 		this.gravitation = gravitation;
 	}
 	
-	public void calculatePosition(Node n, )
+	public void calculatePosition(Node n, Acceleration a)
 	{
 		
 	}

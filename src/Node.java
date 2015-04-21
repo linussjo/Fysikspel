@@ -1,4 +1,6 @@
 import java.awt.Point;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public abstract class Node {
@@ -10,25 +12,29 @@ public abstract class Node {
 	/**
 	 * The mass of the node
 	 */
-	private long mass;
+	private double mass = 0;
 	/**
 	 * The velocity of the node
 	 */
-	private long velocity;
+	private double velocity = 0;
 	/**
 	 * The direction of the nodes force in degrees
 	 */
-	private long direction;
+	private double direction = 0;
+	
+	private Set<Integer> collideNumbers;
+	
+	private int colliderNumber;
 	
 	public Node(Point pos)
 	{
 		this.position = pos;
+		this.collideNumbers = new HashSet<Integer>();
 	}
 	
-	public Node(int x, int y)
+	public boolean addCollideNumber(int c)
 	{
-		this.position = new Point(x,y);
+		return this.collideNumbers.add(c);
 	}
-	
 	
 }
