@@ -10,6 +10,10 @@ public abstract class Node {
 	 */
 	private Point position;
 	/**
+	 * The nodes old position in x and y
+	 */
+	private Point oldPosition;
+	/**
 	 * The mass of the node
 	 */
 	private double mass = 0;
