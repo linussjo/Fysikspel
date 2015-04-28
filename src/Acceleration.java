@@ -1,55 +1,34 @@
 
 public class Acceleration {
-	/**
-	 * gets the acceleration
-	 * The direction of the acceleration in degrees
-	 */
-	private double direction;
-	/**
-	 * @return acceleration
-	 */
-	public double getAcceleration() {
-		return acceleration;
-	}
 
-	/**
-	 * The acceleration as a long
-	 */
-	private double acceleration;
-	/**
-	 * gets the direction of the acceleration
-	 * @return direction
-	 */
-	public double getDirection() {
-		return direction;
-	}
-
+	private float x;
+	private float y;
 	/**
 	 * sets the object to given params
 	 * @param direction, The direction of the acceleration in degrees
 	 * @param The acceleration as a long
 	 */
-	public Acceleration(double direction, double acceleration)
+	public Acceleration(float x, float y)
 	{
-		this.direction = direction;
-		this.acceleration = acceleration;
+		this.x = x;
+		this.y = y;
 	}
 	
 	/**
 	 * calculates and return the acceleration in X axis
 	 * @return Acceleration in C axis
 	 */
-	public double accelerationX()
+	public float getX()
 	{
-		return 0;
+		return this.x;
 	}
 	
 	/**
 	 * calculates and return the acceleration in Y axis
 	 * @return Acceleration in Y axis
 	 */
-	public double accelerationY()
+	public float getY()
 	{
-		return 0;
+		return this.y;
 	}
 }
