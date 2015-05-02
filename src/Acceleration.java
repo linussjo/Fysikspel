@@ -1,12 +1,18 @@
 
 public class Acceleration {
 
+	/**
+	 * The acceleration in x axis
+	 */
 	private float x;
+	/**
+	 * The acceleration in y axis
+	 */
 	private float y;
 	/**
-	 * sets the object to given params
-	 * @param direction, The direction of the acceleration in degrees
-	 * @param The acceleration as a long
+	 * Sets an acceleration by given x and y values
+	 * @param float, x - The acceleration in x axis
+	 * @param float, y - The acceleration in y axis
 	 */
 	public Acceleration(float x, float y)
 	{

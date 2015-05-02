@@ -115,6 +115,7 @@ public class Rectangle extends Node {
 	{
 		if(this.image != null)
 		{
+			g.setColor(this.color);
 			g.drawImage(this.image, this.getPosition().x, this.getPosition().y, this.width, this.height, null);
 		}
 		else

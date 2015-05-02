@@ -10,7 +10,9 @@ import javax.swing.*;
 
 
 public class Game extends JFrame {
-	
+	/**
+	 * A List to hold all the nodes that will be placed out on the screen
+	 */
 	private List<Node> nodes;
 	/**
 	 * Gets the node list
@@ -21,9 +23,9 @@ public class Game extends JFrame {
 	}
 	private double lastUpdate;
 	
-	boolean movingLeft;
-	boolean movingRight;
-	boolean movingUp;
+	private boolean movingLeft;
+	private boolean movingRight;
+	private boolean movingUp;
 
 
 	public Game()
@@ -36,8 +38,9 @@ public class Game extends JFrame {
         
         /**
          * creating a node for as an example.
+         * this are the types im putting in to "new Rectangle(Position x, Position y, Width, Height, Mass)" in the code
          */
-        Node n = new Rectangle(30,30,50,50,50);
+        Node n = new Rectangle(500,400,50,50,50);
         n.applyVelocity(new Velocity(150, 150));
         this.nodes.add(n);
 	}
@@ -60,8 +63,8 @@ public class Game extends JFrame {
                 component.repaint();
             }
         };
-
-        Timer timer = new Timer(17, doOneStep);
+        int fps = 1000/60; // 60 fps 
+        Timer timer = new Timer(fps, doOneStep);
         timer.setCoalesce(true);
         timer.start();
 
@@ -70,23 +73,31 @@ public class Game extends JFrame {
 	}
 	
 	 public void update(double updateTime) {
+		 	// get the first node, as we expect that node to be the player at the moment
 		 	Node n = this.nodes.get(0);
 	        double dx = 0;
 	        double dy = 0;
+	        // Calculate where the node should in x and y axis on the next step.
 	        double tmpX = n.getVelocity().getX() * updateTime * 0.001;
 	        double tmpY = n.getVelocity().getY() * updateTime * 0.001;
+	        // if the arrow left and arrow right are presses at the same time this wont go through otherwise it will
 	        if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
-	            dx = (movingLeft ? -tmpX : tmpX);
+	        	// if moving left -tmpX otherwise tmpX
+	            dx = (movingLeft ? -tmpX : tmpX); 
 	        }
 	        if (movingUp) {
-	            dy = (movingUp ? -tmpY : tmpY);
+	            dy = -tmpY;
 	        }
+	        // set the new position to the node
 	        n.getPosition().translate((int) dx, (int) dy);
 	    }
-	
-	public boolean addNode(Node n)
+	/**
+	 * Adds a node to the node list
+	 * @param Node, n
+	 */
+	public void addNode(Node n)
 	{
-		return this.nodes.add(n);
+		this.nodes.add(n);
 	}
 	
     public void move(Component.Direction dir, boolean val) {

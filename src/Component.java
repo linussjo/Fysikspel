@@ -17,7 +17,6 @@ import javax.swing.KeyStroke;
 
 public class Component extends JComponent {
 	private Game game;
-	private BufferedImage player;
 	
 	public static final int HEIGHT = 720;
 	public static final int WIDTH = 1280;
@@ -25,13 +24,6 @@ public class Component extends JComponent {
 	public Component(Game game) {
         this.game = game;
         setInput();
-        
-        try {
-            player = ImageIO.read(new File(FileSystems.getDefault().getPath(
-                    "data", "stickman.jpg").toUri()));
-        } catch (IOException e) {
-            System.out.println("Image not found");
-        }
      }
 	
     @Override
@@ -44,7 +36,9 @@ public class Component extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
-        //g2.drawImage(player, 200, 500, 120, 250, null);
+        /**
+         * Draw all the Node from game objects list Nodes
+         */
         for(Node n : this.game.getNodes())
         {
         	n.draw(g2);
