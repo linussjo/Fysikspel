@@ -1,3 +1,4 @@
+import java.awt.Graphics;
 import java.awt.Point;
 import java.util.HashSet;
 import java.util.Set;
@@ -158,5 +159,10 @@ public abstract class Node {
 	{
 		return this.collideNumbers.add(c);
 	}
+	/**
+	 * An abstract method to be used for drawing the object to the given Graphics g
+	 * @param Graphics, g
+	 */
+	abstract void draw(Graphics g);
 	
 }

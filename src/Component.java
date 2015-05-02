@@ -44,7 +44,11 @@ public class Component extends JComponent {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
-        g2.drawImage(player, 200, 500, 120, 250, null);
+        //g2.drawImage(player, 200, 500, 120, 250, null);
+        for(Node n : this.game.getNodes())
+        {
+        	n.draw(g2);
+        }
     }
     public enum Direction {
         UP, LEFT, RIGHT

@@ -16,7 +16,7 @@ public class Acceleration {
 	
 	/**
 	 * calculates and return the acceleration in X axis
-	 * @return Acceleration in C axis
+	 * @return Acceleration in X axis
 	 */
 	public float getX()
 	{
