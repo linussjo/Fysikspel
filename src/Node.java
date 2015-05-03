@@ -160,6 +160,16 @@ public abstract class Node {
 		return this.collideNumbers.add(c);
 	}
 	/**
+	 * translate the given distance to move in x and y axis from current position
+	 * @param Int, dx the distance to move in x axis
+	 * @param Int, dy the distance to move in y axis
+	 */
+	public void translatePosition(int dx, int dy)
+	{
+		this.oldPosition = this.position;
+		this.position.translate(dx, dy);
+	}
+	/**
 	 * An abstract method to be used for drawing the object to the given Graphics g
 	 * @param Graphics, g
 	 */

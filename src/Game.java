@@ -89,7 +89,7 @@ public class Game extends JFrame {
 	            dy = -tmpY;
 	        }
 	        // set the new position to the node
-	        n.getPosition().translate((int) dx, (int) dy);
+	        n.translatePosition((int) dx, (int) dy);
 	    }
 	/**
 	 * Adds a node to the node list
@@ -104,15 +104,12 @@ public class Game extends JFrame {
         switch (dir){
             case UP:
                 movingUp = val;
-                System.out.println("Up");
                 break;
             case LEFT:
                 movingLeft = val;
-                System.out.println("Left");
                 break;
             case RIGHT:
                 movingRight = val;
-                System.out.println("Right");
                 break;
         }
     }
