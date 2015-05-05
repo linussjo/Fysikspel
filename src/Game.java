@@ -43,6 +43,7 @@ public class Game extends JFrame {
         Node n = new Rectangle(500,400,50,50,50);
         n.applyVelocity(new Velocity(150, 150));
         this.nodes.add(n);
+        this.nodes.add(new Rectangle(200,200,50,50,50));
 	}
 	
 	public void run(){
@@ -90,6 +91,16 @@ public class Game extends JFrame {
 	        }
 	        // set the new position to the node
 	        n.translatePosition((int) dx, (int) dy);
+	        for(Node node : this.nodes)
+	        {
+	        	if(node != n)
+	        	{
+	        		if(n.intersects(node))
+	        		{
+	        			System.out.println("Collision");
+	        		}
+	        	}
+	        }
 	    }
 	/**
 	 * Adds a node to the node list

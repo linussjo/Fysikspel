@@ -169,6 +169,24 @@ public abstract class Node {
 		this.oldPosition = this.position;
 		this.position.translate(dx, dy);
 	}
+	
+	public boolean intersects(Node n)
+	{
+		if(this instanceof Rectangle && n instanceof Rectangle)
+		{
+			Rectangle r1 = (Rectangle)this;
+			Rectangle r2 = (Rectangle)n;
+			
+			if((new java.awt.Rectangle(r1.getPosition().x, r1.getPosition().y, r1.getWidth(), r1.getHeight())
+			.intersects(r2.getPosition().x, r2.getPosition().y, r2.getWidth(), r2.getHeight())))
+			{
+				return true;
+			}
+			else
+				return false;
+		}
+		return false;
+	}
 	/**
 	 * An abstract method to be used for drawing the object to the given Graphics g
 	 * @param Graphics, g
