@@ -1,12 +1,14 @@
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javax.swing.*;
+import javax.swing.AbstractAction;
+import javax.swing.JFrame;
+import javax.swing.Timer;
+import javax.swing.WindowConstants;
 
 
 public class Game extends JFrame {
@@ -21,7 +23,9 @@ public class Game extends JFrame {
 	public List<Node> getNodes() {
 		return nodes;
 	}
+	
 	private double lastUpdate;
+	private Physics physics;
 	
 	private boolean movingLeft;
 	private boolean movingRight;
@@ -32,6 +36,7 @@ public class Game extends JFrame {
 	{
 		super("Fysikspel");
 		this.nodes = new ArrayList<Node>();
+		this.physics = new Physics(650);
 		this.movingUp = false;
         this.movingLeft = false;
         this.movingRight = false;
@@ -40,10 +45,30 @@ public class Game extends JFrame {
          * creating a node for as an example.
          * this are the types im putting in to "new Rectangle(Position x, Position y, Width, Height, Mass)" in the code
          */
-        Node n = new Rectangle(500,400,50,50,50);
-        n.applyVelocity(new Velocity(150, 150));
+        Node n = new Player();
+        //n.applyVelocity(new Velocity(150, 150));
         this.nodes.add(n);
-        this.nodes.add(new Rectangle(200,200,50,50,50));
+        
+        Rectangle floor = new Rectangle(0, Component.HEIGHT-20, Component.WIDTH, 20);
+        floor.setColor(Color.YELLOW);
+        floor.setColliderNumber(Node.Collision.FLOOR);
+        this.nodes.add(floor);
+        
+        Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT);
+        leftWall.setColor(Color.YELLOW);
+        leftWall.setColliderNumber(Node.Collision.LEFTWALL);
+        this.nodes.add(leftWall);
+        
+        Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT);
+        rightWall.setColor(Color.YELLOW);
+        rightWall.setColliderNumber(Node.Collision.RIGHTWALL);
+        this.nodes.add(rightWall);
+        
+        Rectangle floor1 = new Rectangle(350, 530, 300, 25);
+        floor1.setColor(Color.YELLOW);
+        floor1.setColliderNumber(Node.Collision.FLOOR);
+        this.nodes.add(floor1);
+        
 	}
 	
 	public void run(){
@@ -59,7 +84,7 @@ public class Game extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 double currentTime = System.currentTimeMillis();
-                update(currentTime - lastUpdate);
+                update((currentTime - lastUpdate)*0.001);
                 lastUpdate = currentTime;
                 component.repaint();
             }
@@ -75,29 +100,82 @@ public class Game extends JFrame {
 	
 	 public void update(double updateTime) {
 		 	// get the first node, as we expect that node to be the player at the moment
-		 	Node n = this.nodes.get(0);
-	        double dx = 0;
-	        double dy = 0;
-	        // Calculate where the node should in x and y axis on the next step.
-	        double tmpX = n.getVelocity().getX() * updateTime * 0.001;
-	        double tmpY = n.getVelocity().getY() * updateTime * 0.001;
-	        // if the arrow left and arrow right are presses at the same time this wont go through otherwise it will
+		 	Player player = (Player) this.nodes.get(0);
+	        // if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 	        if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
-	        	// if moving left -tmpX otherwise tmpX
-	            dx = (movingLeft ? -tmpX : tmpX); 
+	            int vx = (movingLeft ? -300 : 300); 
+	            player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
 	        }
 	        if (movingUp) {
-	            dy = -tmpY;
+	            //dy = -tmpY;
+	        	if(!player.isInAir())
+	        		player.setVelocity(new Velocity(player.getVelocity().getX(),-400));
 	        }
 	        // set the new position to the node
-	        n.translatePosition((int) dx, (int) dy);
+	        this.physics.calculatePosition(player, updateTime);
+	        
+	        boolean didPlayerIntersectFloor = false;
+	        
 	        for(Node node : this.nodes)
 	        {
-	        	if(node != n)
+	        	if(node.getColliderNumber() != Node.Collision.PLAYER)
 	        	{
-	        		if(n.intersects(node))
+	        		if(player.intersects(node))
 	        		{
-	        			System.out.println("Collision");
+	        			if(player.getCollideNumbers().contains(node.getColliderNumber()))
+	        			{
+	        				Rectangle r = (Rectangle)node;
+	        				if(node.getColliderNumber() == Node.Collision.FLOOR)
+	        				{
+		        				player.setInAir(false);
+		        				didPlayerIntersectFloor = true;
+	        					player.setVelocity(new Velocity(0, 0));
+	        					player.setPosition(new Point(player.getPosition().x,r.getPosition().y + (1 - player.getHeight())));
+	        				}
+	        				else if(node.getColliderNumber() == Node.Collision.LEFTWALL)
+	        				{
+	        					player.setVelocity(new Velocity(0, player.getVelocity().getY()));
+	        					player.setPosition(new Point(r.getPosition().x - 1 + r.getWidth(), player.getPosition().y));
+	        				}
+	        				else if(node.getColliderNumber() == Node.Collision.RIGHTWALL)
+	        				{
+	        					player.setVelocity(new Velocity(0, player.getVelocity().getY()));
+	        					player.setPosition(new Point(r.getPosition().x + (1 - player.getWidth()), player.getPosition().y));
+	        				}
+	        				else if(node.getColliderNumber() == Node.Collision.OBSTACLE)
+	        				{
+	        					int y1 = player.getPosition().y;
+	        					int y2 = player.getPosition().y - player.getHeight();
+	        					int y3 = r.getPosition().y;
+	        					int y4 = r.getPosition().y - r.getHeight();
+	        					
+	        					int x1 = player.getPosition().x;
+	        					int x2 = player.getPosition().x - player.getWidth();
+	        					int x3 = r.getPosition().x;
+	        					int x4 = r.getPosition().x - r.getWidth();
+	        					
+	        					/*if(y1 < y4)
+	        					{
+	        						if(x1 > x3)
+	        						{
+	        							
+	        						}
+	        					}
+	        					else if(y1 < y4 && x2 > x3)
+	        					{
+	        						
+	        					}
+	        					else if(y2 > y3)*/
+	        				}
+	        			
+	        			}
+	        		}
+	        		else
+	        		{
+	        			if(!didPlayerIntersectFloor)
+	        			{
+	        				player.setInAir(true);
+	        			}
 	        		}
 	        	}
 	        }

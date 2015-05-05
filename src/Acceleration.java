@@ -37,4 +37,10 @@ public class Acceleration {
 	{
 		return this.y;
 	}
+	
+	public void combine(Acceleration acc)
+	{
+		this.x += acc.getX();
+		this.y += acc.getY();
+	}
 }

@@ -22,19 +22,7 @@ public abstract class Node {
 	 * @param position, Type of Point.
 	 */
 	public void setPosition(Point position) {
-		this.oldPosition = this.position;
 		this.position = position;
-	}
-	/**
-	 * The nodes old position in x and y
-	 */
-	private Point oldPosition;
-	/**
-	 * Returns the old position of the node.
-	 * @return oldPosition, Returns the old position of the node.
-	 */
-	public Point getOldPosition() {
-		return oldPosition;
 	}
 
 	/**
@@ -52,7 +40,13 @@ public abstract class Node {
 	 * The velocity of the node
 	 */
 	private Velocity velocity;
-
+	/**
+	 * sets the new given velocity to the node
+	 * @param Velocity, velocity
+	 */
+	public void setVelocity(Velocity velocity) {
+		this.velocity = velocity;
+	}
 	/**
 	 * Returns the velocity of the node.
 	 * @return velocity, Return the velocity of the node
@@ -78,14 +72,19 @@ public abstract class Node {
 	public void setAcceleration(Acceleration acceleration) {
 		this.acceleration = acceleration;
 	}
+	
+	public void applyAccelertaion(Acceleration acc)
+	{
+		this.acceleration.combine(acc);
+	}
 	/**
 	 * Which collideNumbers that this node will collide with.
 	 */
-	private Set<Integer> collideNumbers;
+	private Set<Collision> collideNumbers;
 	/**
 	 * colliderNumber
 	 */
-	private int colliderNumber;
+	private Collision colliderNumber;
 	/**
 	 * If the node is collidable with.
 	 */
@@ -126,7 +125,7 @@ public abstract class Node {
 		this.mass = mass;
 		this.velocity = new Velocity(0, 0);
 		this.acceleration = new Acceleration(0, 0);
-		this.collideNumbers = new HashSet<Integer>();
+		this.collideNumbers = new HashSet<Collision>();
 		this.hasPhysics = true;
 	}
 	/**
@@ -136,6 +135,12 @@ public abstract class Node {
 	public Node(Point pos){
 		this.position = pos;
 		this.hasPhysics = false;
+	}
+	/**
+	 * @return the collideNumbers
+	 */
+	public Set<Collision> getCollideNumbers() {
+		return collideNumbers;
 	}
 	/**
 	 * Combine the new velocity with the old one.
@@ -155,7 +160,7 @@ public abstract class Node {
 	 * @param int, c.
 	 * @return boolean, Returns true if the collideNumber didn't exist, else false.
 	 */
-	public boolean addCollideNumber(int c)
+	public boolean getCollideNumber(Collision c)
 	{
 		return this.collideNumbers.add(c);
 	}
@@ -166,7 +171,6 @@ public abstract class Node {
 	 */
 	public void translatePosition(int dx, int dy)
 	{
-		this.oldPosition = this.position;
 		this.position.translate(dx, dy);
 	}
 	
@@ -192,5 +196,27 @@ public abstract class Node {
 	 * @param Graphics, g
 	 */
 	abstract void draw(Graphics g);
+	
+	/**
+	 * @return the colliderNumber
+	 */
+	public Collision getColliderNumber() {
+		return colliderNumber;
+	}
+	/**
+	 * @param colliderNumber the colliderNumber to set
+	 */
+	public void setColliderNumber(Collision colliderNumber) {
+		this.colliderNumber = colliderNumber;
+	}
+
+	public enum Collision{
+		PLAYER,
+		OBSTACLE,
+		FLOOR,
+		ROOF,
+		RIGHTWALL,
+		LEFTWALL;
+	}
 	
 }
