@@ -20,8 +20,8 @@ public class Physics {
 		float vx = this.calculateXVelocity(n, time);
 		float vy = this.calculateYVelocity(n, time);
 		
-		if(n.isDidObjectIntersectFloor() && !n.isInAir())
-			vy = 0;
+		//if(n.isDidObjectIntersectFloor() && !n.isInAir())
+			//vy = 0;
 		
 		n.setVelocity(new Velocity(vx,vy));
 		

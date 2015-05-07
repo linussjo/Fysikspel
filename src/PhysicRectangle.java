@@ -62,20 +62,25 @@ public class PhysicRectangle extends Rectangle {
 
 							//med boink, annars sätt velY till 0
 							float vy = 0;
+							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vy = (float) ((0.5)*pr.getVelocity().getY()*(-1));
-								if(vy >= -60)
+								vy = (float) ((0.78)*pr.getVelocity().getY()*(-1));
+								vx = pr.getVelocity().getX();
+								if(vy >= -100)
 								{
 									vy = 0;
+									vx = 0;
 								}
-								System.out.println(vy);
+								else
+								{
+									pr.setInAir(true);
+									pr.setDidObjectIntersectFloor(false);
+								}
 
 							}
-							else
-								vy = 0;
 							
-							pr.setVelocity(new Velocity(0, vy));
+							pr.setVelocity(new Velocity(vx, vy));
 							pr.setPosition(new Point(pr.getPosition().x, r.getPosition().y - pr.getHeight()));
 						}
 						else
@@ -83,8 +88,14 @@ public class PhysicRectangle extends Rectangle {
 
 							//med boink, annars sätt velY till 0
 							float vy = 0;
-							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE || (int)((0.9)*(pr.getVelocity().getY()*(-1))) != 0)
+							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
+							{
 								vy = (int)((0.9)*(pr.getVelocity().getY()*(-1)));
+								if(vy <= 60)
+								{
+									vy = 0;
+								}
+							}
 							else
 								vy = 0;
 
@@ -99,8 +110,8 @@ public class PhysicRectangle extends Rectangle {
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vx = (int)((0.9)*(pr.getVelocity().getX()*(-1)));
-								if(vx <= 1)
+								vx = (int)((0.8)*(pr.getVelocity().getX()*(-1)));
+								if(vx >= 60)
 								{
 									vx = 0;
 								}
@@ -108,7 +119,7 @@ public class PhysicRectangle extends Rectangle {
 							else
 								vx = 0;
 
-							pr.setVelocity(new Velocity(0, pr.getVelocity().getY()));
+							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x - pr.getWidth(), pr.getPosition().y));
 						}
 						else if(pr.getVelocity().getX()<0)
@@ -116,8 +127,8 @@ public class PhysicRectangle extends Rectangle {
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vx = (int)((0.9)*(pr.getVelocity().getX()*(-1)));
-								if(vx >= -1)
+								vx = (int)((0.8)*(pr.getVelocity().getX()*(-1)));
+								if(vx <= -60)
 								{
 									vx = 0;
 								}
@@ -125,7 +136,7 @@ public class PhysicRectangle extends Rectangle {
 							else
 								vx = 0;
 
-							pr.setVelocity(new Velocity(0, pr.getVelocity().getY()));
+							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x + r.getWidth(), pr.getPosition().y));
 						}
 					}

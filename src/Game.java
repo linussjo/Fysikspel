@@ -36,7 +36,7 @@ public class Game extends JFrame {
 	{
 		super("Fysikspel");
 		this.nodes = new ArrayList<Node>();
-		this.physics = new Physics(650);
+		this.physics = new Physics(1000);
 		this.movingUp = false;
 		this.movingLeft = false;
 		this.movingRight = false;
@@ -54,19 +54,24 @@ public class Game extends JFrame {
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor);
 		
+		Rectangle floor2 = new Rectangle(200, 500, 330, 1);
+		floor2.setColor(Color.YELLOW);
+		floor2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.nodes.add(floor2);
+		
 		Rectangle obstacle = new Rectangle(600, 500, 300, 55);
 		obstacle.setColor(Color.YELLOW);
-		obstacle.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		obstacle.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(obstacle);
 
 		Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT);
 		leftWall.setColor(Color.YELLOW);
-		leftWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		leftWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(leftWall);
 
 		Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT);
 		rightWall.setColor(Color.YELLOW);
-		rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		rightWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(rightWall);
 
 
@@ -105,7 +110,7 @@ public class Game extends JFrame {
 		Player player = (Player) this.nodes.get(0);
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
-			int vx = (movingLeft ? -300 : 300); 
+			int vx = (movingLeft ? -500 : 500); 
 			player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
 			player.setDidObjectIntersectFloor(false);
 		}
@@ -113,7 +118,7 @@ public class Game extends JFrame {
 			//dy = -tmpY;
 			if(!player.isInAir())
 			{
-				player.setVelocity(new Velocity(player.getVelocity().getX(),-600));
+				player.setVelocity(new Velocity(player.getVelocity().getX(),-800));
 				player.setDidObjectIntersectFloor(false);
 			}
 		}
