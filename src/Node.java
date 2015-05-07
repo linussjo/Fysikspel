@@ -22,9 +22,11 @@ public abstract class Node {
 	 * @param position, Type of Point.
 	 */
 	public void setPosition(Point position) {
+		this.oldPosition = new Point(this.position.x, this.position.y);
 		this.position = position;
 	}
-
+	
+	private Point oldPosition;
 	/**
 	 * The mass of the node
 	 */
@@ -122,6 +124,7 @@ public abstract class Node {
 	public Node(Point pos, float mass)
 	{
 		this.position = pos;
+		this.oldPosition = pos;
 		this.mass = mass;
 		this.velocity = new Velocity(0, 0);
 		this.acceleration = new Acceleration(0, 0);
@@ -134,6 +137,7 @@ public abstract class Node {
 	 */
 	public Node(Point pos){
 		this.position = pos;
+		this.oldPosition = pos;
 		this.hasPhysics = false;
 	}
 	/**
@@ -171,6 +175,7 @@ public abstract class Node {
 	 */
 	public void translatePosition(int dx, int dy)
 	{
+		this.oldPosition = (Point) this.position.clone();
 		this.position.translate(dx, dy);
 	}
 	
@@ -210,9 +215,17 @@ public abstract class Node {
 		this.colliderNumber = colliderNumber;
 	}
 
+	/**
+	 * @return the oldPosition
+	 */
+	public Point getOldPosition() {
+		return oldPosition;
+	}
+
 	public enum Collision{
 		PLAYER,
-		OBSTACLE,
+		SOLIDOBSTACLE,
+		BOINKOBSTACLE,
 		FLOOR,
 		ROOF,
 		RIGHTWALL,
