@@ -11,6 +11,20 @@ import javax.imageio.ImageIO;
 public class Player extends PhysicRectangle {
 
 
+	/**
+	 * @return the hasShotArrow
+	 */
+	public boolean hasShotArrow() {
+		return hasShotArrow;
+	}
+
+	/**
+	 * @param hasShotArrow the hasShotArrow to set
+	 */
+	public void setHasShotArrow(boolean hasShotArrow) {
+		this.hasShotArrow = hasShotArrow;
+	}
+
 	Player() {
 		super(100, 500, 50, 50, 50);
 		this.setColliderNumber(Collision.PLAYER);
@@ -29,10 +43,12 @@ public class Player extends PhysicRectangle {
 	
 	private boolean shotArrow;
 	
+	private boolean hasShotArrow;
+	
 	/**
 	 * @return the shotArrow
 	 */
-	public boolean isShotArrow() {
+	public boolean shotArrow() {
 		return shotArrow;
 	}
 

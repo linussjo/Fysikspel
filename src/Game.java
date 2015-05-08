@@ -134,15 +134,29 @@ public class Game extends JFrame {
 	public void update(double updateTime) {
 		// get the first node, as we expect that node to be the player at the moment
 
-		if(player.isShotArrow())
+		if(player.shotArrow() && !player.hasShotArrow())
 		{
 			int vx = (movingLeft ? -550 : 550);
 
 			Arrow a = new Arrow(player.getActiveItem());
 			this.nodes.add(a);
 			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -150 + player.getVelocity().getY()));
-			player.setShotArrow(false);
-		}
+			
+			player.setHasShotArrow(true);
+			
+			AbstractAction doOneStep = new AbstractAction() {
+    			@Override
+    			public void actionPerformed(ActionEvent e) {
+    				player.setShotArrow(false);
+    				player.setHasShotArrow(false);
+    			}
+    		};
+    		
+    		javax.swing.Timer timer = new javax.swing.Timer(500, doOneStep);
+    		timer.setRepeats(false);
+    		timer.start();
+    	}
+			
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 

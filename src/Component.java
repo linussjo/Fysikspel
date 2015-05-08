@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.Timer;
 
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
@@ -92,10 +93,14 @@ public class Component extends JComponent {
         getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "SPACE");
         getActionMap().put("SPACE", new AbstractAction() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-            	if(game.getPlayer().getActiveItem() instanceof Bow)
+            public void actionPerformed(ActionEvent e)
+            {
+            	if(game.getPlayer().getActiveItem() instanceof Bow && !game.getPlayer().shotArrow())
+            	{
             		game.getPlayer().setShotArrow(true);
+            	}
             }
+            	
         });
         
         
