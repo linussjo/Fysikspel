@@ -114,6 +114,7 @@ public class Game extends JFrame {
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 
+			player.whichDirectionImage(movingLeft);
 			player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
 			player.setDidObjectIntersectFloor(false);
 		}

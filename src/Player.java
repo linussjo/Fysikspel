@@ -32,6 +32,7 @@ public class Player extends PhysicRectangle {
 		this.itemContainer.add(i);
 	}
 
+	private boolean movingLeft = false;
 
 	/**
 	 * @param inAir
@@ -40,7 +41,15 @@ public class Player extends PhysicRectangle {
 	public void setInAir(boolean inAir) {
 		super.setInAir(inAir);
 		BufferedImage img = null;
-		if(inAir)
+		if(inAir && movingLeft){
+			try {
+			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+	                    "data", "8-bit_JumpAndreasLeft.png").toUri()));
+	        } catch (IOException e) {
+	            System.out.println("Image not found");
+	        }
+		}
+		else if(inAir && !movingLeft)
 		{
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
@@ -48,9 +57,29 @@ public class Player extends PhysicRectangle {
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
+		}else{
+			try {
+			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+	                    "data", "8-bit_Andreas.png").toUri()));
+	        } catch (IOException e) {
+	            System.out.println("Image not found");
+	        }
 		}
-		else
-		{
+		this.setImage(img);
+	}
+	public void whichDirectionImage(boolean movingLeft){
+		BufferedImage img = null;
+		this.movingLeft = movingLeft;
+		if(movingLeft){
+			try {
+			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+	                    "data", "8-bit_AndreasLeft.png").toUri()));
+			     System.out.println("Back");
+	        } catch (IOException e) {
+	            System.out.println("Image not found");
+	        }
+			
+		}else{
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_Andreas.png").toUri()));
