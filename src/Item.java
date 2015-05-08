@@ -18,6 +18,10 @@ public abstract class Item extends PhysicRectangle {
 		return name;
 	}
 	
+	public void setHasPhysics(boolean hasPhysics) {
+		super.setHasPhysics(hasPhysics);
+	}
+	
 	
 	
 	

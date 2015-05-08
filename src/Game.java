@@ -48,33 +48,35 @@ public class Game extends JFrame {
 		Node n = new Player();
 		//n.applyVelocity(new Velocity(150, 150));
 		this.nodes.add(n);
+		
+		int inventorySpace = 100;
 
-		Rectangle floor = new Rectangle(0, Component.HEIGHT-20, Component.WIDTH, 20);
+		Rectangle floor = new Rectangle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20);
 		floor.setColor(Color.YELLOW);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor);
 		
-		Rectangle floor2 = new Rectangle(200, 500, 330, 1);
+		Rectangle floor2 = new Rectangle(200, 500-inventorySpace, 330, 1);
 		floor2.setColor(Color.YELLOW);
 		floor2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor2);
 		
-		Rectangle obstacle = new Rectangle(600, 500, 300, 55);
+		Rectangle obstacle = new Rectangle(600, 500-inventorySpace, 300, 55);
 		obstacle.setColor(Color.YELLOW);
 		obstacle.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(obstacle);
 
-		Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT);
+		Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT-inventorySpace);
 		leftWall.setColor(Color.YELLOW);
 		leftWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(leftWall);
 
-		Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT);
+		Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT-inventorySpace);
 		rightWall.setColor(Color.YELLOW);
 		rightWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(rightWall);
 
-		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 70, 30, 30, 1);
+		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 70-inventorySpace, 30, 30, 1);
 		kladdkaka.setColliderNumber(Node.Collision.BROWNIE);
 		this.nodes.add(kladdkaka);
 	}
@@ -149,7 +151,10 @@ public class Game extends JFrame {
 						if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
 							if (node2 instanceof Brownie){
 								player.addItem((Brownie)node2);
-								System.out.println(((Brownie) node2).getName());
+								node2.setHasPhysics(false);
+								node2.setPosition(new Point(100, Component.HEIGHT-60));
+								//System.out.println(((Brownie) node2).getName());
+								
 							}
 						}
 					}
