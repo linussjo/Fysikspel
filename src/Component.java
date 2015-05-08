@@ -43,6 +43,12 @@ public class Component extends JComponent {
         {
         	n.draw(g2);
         }
+        int x = 30;
+        for(Item i : ((Player)this.game.getNodes().get(0)).getItemContainer())
+        {
+        	g2.drawImage(i.getImage(), x, this.HEIGHT - 35 - i.getHeight(), i.getWidth(), i.getHeight(), null);
+        	x += 50;
+        }
     }
     public enum Direction {
         UP, LEFT, RIGHT

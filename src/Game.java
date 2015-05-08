@@ -49,7 +49,7 @@ public class Game extends JFrame {
 		//n.applyVelocity(new Velocity(150, 150));
 		this.nodes.add(n);
 		
-		int inventorySpace = 100;
+		final int inventorySpace = 100;
 
 		Rectangle floor = new Rectangle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20);
 		floor.setColor(Color.YELLOW);

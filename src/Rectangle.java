@@ -59,6 +59,11 @@ public class Rectangle extends Node {
 	public void setImage(BufferedImage image) {
 		this.image = image;
 	}
+	
+	public BufferedImage getImage()
+	{
+		return this.image;
+	}
 	/**
 	 * Contructor creates a new rectangle that's affected by physics.
 	 * @param Point, pos - Position of the rectangle.
