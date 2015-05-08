@@ -1,10 +1,27 @@
 import java.awt.Point;
 
 
+
 public class PhysicRectangle extends Rectangle {
+	private boolean floorZeroVelocity = false;
+	
 	private boolean inAir = false;
 
 	boolean didObjectIntersectFloor = false;
+	/**
+	 * @return the floorZeroVelocity
+	 */
+	public boolean isFloorZeroVelocity() {
+		return floorZeroVelocity;
+	}
+
+	/**
+	 * @param floorZeroVelocity the floorZeroVelocity to set
+	 */
+	public void setFloorZeroVelocity(boolean floorZeroVelocity) {
+		this.floorZeroVelocity = floorZeroVelocity;
+	}
+
 	/**
 	 * @return the didObjectIntersectFloor
 	 */
@@ -36,7 +53,9 @@ public class PhysicRectangle extends Rectangle {
 
 	public PhysicRectangle(int x, int y, int width, int height, float mass) {
 		super(x, y, width, height, mass);
-		// TODO Auto-generated constructor stub
+		
+		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
+		this.addCollideNumbers(Collision.BOINKOBSTACLE);
 	}
 
 	public boolean collisionCheck(Rectangle r, double updateTime)
@@ -46,7 +65,7 @@ public class PhysicRectangle extends Rectangle {
 		{
 			if(pr.getCollideNumbers().contains(r.getColliderNumber()))
 			{
-				if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE || r.getColliderNumber() == Node.Collision.BOINKOBSTACLE )
+				if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE || r.getColliderNumber() == Node.Collision.BOINKOBSTACLE || r.getColliderNumber() == Node.Collision.MOVABLEBOX )
 				{      
 					int y1 = pr.getOldPosition().y + pr.getHeight();
 					int y2 = pr.getOldPosition().y;
@@ -60,7 +79,7 @@ public class PhysicRectangle extends Rectangle {
 							pr.setInAir(false);
 							pr.setDidObjectIntersectFloor(true);
 
-							//med boink, annars sätt velY till 0
+							//med boink, annars sï¿½tt velY till 0
 							float vy = 0;
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
@@ -74,7 +93,8 @@ public class PhysicRectangle extends Rectangle {
 								if(vy >= -100)
 								{
 									vy = 0;
-									vx = 0;
+									if(this.floorZeroVelocity)
+										vx = 0;
 								}
 								else
 								{
@@ -83,6 +103,10 @@ public class PhysicRectangle extends Rectangle {
 								}
 
 							}
+							if(!this.floorZeroVelocity)
+								vx = pr.getVelocity().getX();
+							else if(pr instanceof MoveableBox)
+								vx = pr.getVelocity().getX();
 							
 							pr.setVelocity(new Velocity(vx, vy));
 							pr.setPosition(new Point(pr.getPosition().x, r.getPosition().y - pr.getHeight()));
@@ -90,7 +114,7 @@ public class PhysicRectangle extends Rectangle {
 						else
 						{
 
-							//med boink, annars sätt velY till 0
+							//med boink, annars sï¿½tt velY till 0
 							float vy = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
@@ -101,8 +125,8 @@ public class PhysicRectangle extends Rectangle {
 									vy = 0;
 								}
 							}
-							else
-								vy = 0;
+							else if(pr instanceof MoveableBox)
+								vy = pr.getVelocity().getY();
 
 							pr.setVelocity(new Velocity(0, vy));
 							pr.setPosition(new Point(pr.getPosition().x, r.getPosition().y + r.getHeight()));
@@ -126,8 +150,8 @@ public class PhysicRectangle extends Rectangle {
 									vx = 0;
 								}
 							}
-							else
-								vx = 0;
+							else if(pr instanceof MoveableBox)
+								vx = pr.getVelocity().getX();
 
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x - pr.getWidth(), pr.getPosition().y));
@@ -147,8 +171,8 @@ public class PhysicRectangle extends Rectangle {
 									vx = 0;
 								}
 							}
-							else
-								vx = 0;
+							else if(pr instanceof MoveableBox)
+								vx = pr.getVelocity().getX();
 
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x + r.getWidth(), pr.getPosition().y));

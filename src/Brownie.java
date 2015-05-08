@@ -14,8 +14,8 @@ public class Brownie extends Item {
 		super(name, x, y, width, height, mass);
 		
 		this.setColliderNumber(Collision.BROWNIE);
-		this.getCollideNumber(Collision.BOINKOBSTACLE);
-		this.getCollideNumber(Collision.SOLIDOBSTACLE);
+		this.addCollideNumbers(Collision.BOINKOBSTACLE);
+		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
 		
 		BufferedImage img = null;
 		

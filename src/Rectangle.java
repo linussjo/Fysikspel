@@ -14,6 +14,18 @@ public class Rectangle extends Node {
 	 */
 	private int width;
 	/**
+	 * @param width the width to set
+	 */
+	protected void setWidth(int width) {
+		this.width = width;
+	}
+	/**
+	 * @param height the height to set
+	 */
+	protected void setHeight(int height) {
+		this.height = height;
+	}
+	/**
 	 * Returns the width of the rectangle.
 	 * @return int, width.
 	 */

@@ -63,5 +63,31 @@ public class Physics {
 		return vx;
 	}
 	
+	public void calculateElasticCollision(PhysicRectangle r1, PhysicRectangle r2)
+	{
+		double m1 = r1.getMass();
+		double m2 = r2.getMass();
+		float vi1 = r1.getVelocity().getX();
+		float vi2 = r2.getVelocity().getX();
+		
+		float vfx1 =   (float) ((m1 -m2)*vi1/(m1 + m2) + 2*m2*vi2/(m1 + m2));
+		float vfx2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));
+		
+		/*vi1 = r1.getVelocity().getY();
+		vi2 = r2.getVelocity().getY();
+		
+		float vfy1 =   (float) ((m1 -m2)*vi1/(m1 + m2) + 2*m2*vi2/(m1 + m2));
+		float vfy2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));*/
+		
+		if(!(r1 instanceof Player))
+		{
+			r1.setVelocity(new Velocity(vfx1, r1.getVelocity().getY() + 1));
+		}
+		if(!(r2 instanceof Player))
+		{
+			r2.setVelocity(new Velocity(vfx2, r2.getVelocity().getY() + 1));
+		}
+	}
+	
 
 }

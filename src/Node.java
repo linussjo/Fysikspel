@@ -158,6 +158,7 @@ public abstract class Node {
 	public Node(Point pos){
 		this.position = pos;
 		this.oldPosition = pos;
+		this.collideNumbers = new HashSet<Collision>();
 		this.hasPhysics = false;
 	}
 	/**
@@ -184,7 +185,7 @@ public abstract class Node {
 	 * @param int, c.
 	 * @return boolean, Returns true if the collideNumber didn't exist, else false.
 	 */
-	public boolean getCollideNumber(Collision c)
+	public boolean addCollideNumbers(Collision c)
 	{
 		return this.collideNumbers.add(c);
 	}
@@ -246,11 +247,11 @@ public abstract class Node {
 		PLAYER,
 		SOLIDOBSTACLE,
 		BOINKOBSTACLE,
-		FLOOR,
-		ROOF,
-		RIGHTWALL,
-		LEFTWALL,
-		BROWNIE;
+		MOVABLEBOX,
+		BROWNIE,
+		BOW,
+		ARROW,
+		BUTTON;
 	}
 	
 }

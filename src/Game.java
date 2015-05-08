@@ -31,7 +31,16 @@ public class Game extends JFrame {
 	private boolean movingRight;
 	private boolean movingUp;
 
+	private Player player;
 
+
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+	private Obstacle ob;
 	public Game()
 	{
 		super("Fysikspel");
@@ -45,25 +54,27 @@ public class Game extends JFrame {
 		 * creating a node for as an example.
 		 * this are the types im putting in to "new Rectangle(Position x, Position y, Width, Height, Mass)" in the code
 		 */
-		Node n = new Player();
+		Player n = new Player();
 		//n.applyVelocity(new Velocity(150, 150));
 		this.nodes.add(n);
-		
+
+		this.player = n;
+
 		final int inventorySpace = 100;
 
 		Rectangle floor = new Rectangle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20);
 		floor.setColor(Color.YELLOW);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor);
-		
+
 		Rectangle floor2 = new Rectangle(200, 500-inventorySpace, 330, 1);
 		floor2.setColor(Color.BLACK);
 		floor2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor2);
-		
+
 		Obstacle obstacle = new Obstacle(600, 500-inventorySpace, 300, 55, 1);
 		obstacle.setColor(Color.YELLOW);
-		obstacle.setColliderNumber(Node.Collision.BOINKOBSTACLE);
+		obstacle.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(obstacle);
 
 		Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT-inventorySpace);
@@ -77,14 +88,20 @@ public class Game extends JFrame {
 		this.nodes.add(rightWall);
 
 		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
-		kladdkaka.setColliderNumber(Node.Collision.BROWNIE);
 		this.nodes.add(kladdkaka);
 		kladdkaka.applyVelocity(new Velocity(350, -350));
-		
-		Brownie kladdkaka2 = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
-		kladdkaka2.setColliderNumber(Node.Collision.BROWNIE);
-		this.nodes.add(kladdkaka2);
-		kladdkaka2.applyVelocity(new Velocity(250, 250));
+
+		Bow bow = new Bow("Andreas båge", 400, Component.HEIGHT - 500-inventorySpace, 30, 30);
+		this.nodes.add(bow);
+		bow.applyVelocity(new Velocity(250, 250));
+
+		Button butt = new Button(20, 350, 20, 50);
+		this.nodes.add(butt);
+
+		this.ob = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-250, 50, 250, 1);
+		Obstacle ob2 = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-300, 140, 50, 1);
+		this.nodes.add(ob);
+		this.nodes.add(ob2);
 	}
 
 	public void run(){
@@ -116,11 +133,20 @@ public class Game extends JFrame {
 
 	public void update(double updateTime) {
 		// get the first node, as we expect that node to be the player at the moment
-		Player player = (Player) this.nodes.get(0);
+
+		if(player.isShotArrow())
+		{
+			int vx = (movingLeft ? -550 : 550);
+
+			Arrow a = new Arrow(player.getActiveItem());
+			this.nodes.add(a);
+			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -150 + player.getVelocity().getY()));
+			player.setShotArrow(false);
+		}
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 
-			
+
 			player.whichDirectionImage(movingLeft);
 			player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
 			player.setDidObjectIntersectFloor(false);
@@ -133,46 +159,59 @@ public class Game extends JFrame {
 				player.setDidObjectIntersectFloor(false);
 			}
 		}
-		
+
 		for(Node node1 : this.nodes)
 		{
 			if(!node1.ifHasPhysics())
 				continue;
 
 			PhysicRectangle pr = (PhysicRectangle)node1;
-			
+
 			this.physics.calculatePosition(pr, updateTime);
-			
+
 			for(Node node2 : this.nodes)
 			{
 				if(node1 == node2)
 					continue;
-				
-				
+
 				if(pr.collisionCheck((Rectangle)node2, updateTime)) // collision with obstacle
 				{
-					
+					if(pr instanceof Arrow)
+						pr.setHasPhysics(false);
+
 				}
 				else // no collision with obstacle
 				{
-					if (node1.intersects(node2)){
-						if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
-							if (node2 instanceof Brownie){
-								if(!player.getItemContainer().contains(node2))
+					if(node1.isCollidable() && node2.isCollidable())
+					{
+						if (node1.intersects(node2)){
+							if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
+								/**
+								 * Code here to make your own code for what should happen when the node2 and node1 collides
+								 * Node1 is a moving object because it is affected by physics
+								 * Node2 don't necessary have to be affected by gravity.  
+								 */
+								if (node2 instanceof Item)
 								{
-									node2.setShouldDraw(false);
-									player.addItem((Brownie)node2);
-									node2.setHasPhysics(false);
+									if(!player.getItemContainer().contains(node2))
+									{
+										node2.setShouldDraw(false);
+										player.addItem((Item)node2);
+										node2.setHasPhysics(false);
+									}
 								}
-								//node2.setPosition(new Point(100, Component.HEIGHT-60));
-								//System.out.println(((Brownie) node2).getName());
-								
+							}
+							else if(node2.getCollideNumbers().contains(node1.getColliderNumber()))
+							{
+								if(node2 instanceof Button)
+								{
+									ob.setPosition(new Point(ob.getPosition().x, ob.getPosition().y - ob.getHeight()));
+									node2.setCollidable(false);
+								}
 							}
 						}
-					}
-										
+					}				
 				}
-				
 			}
 		}
 	}

@@ -13,19 +13,36 @@ public class Player extends PhysicRectangle {
 
 	Player() {
 		super(100, 500, 50, 50, 50);
-		this.getCollideNumber(Collision.FLOOR);
-		this.getCollideNumber(Collision.LEFTWALL);
-		this.getCollideNumber(Collision.RIGHTWALL);
-		this.getCollideNumber(Collision.SOLIDOBSTACLE);
-		this.getCollideNumber(Collision.BOINKOBSTACLE);
 		this.setColliderNumber(Collision.PLAYER);
-		this.getCollideNumber(Collision.BROWNIE);
+		this.addCollideNumbers(Collision.MOVABLEBOX);
+		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
+		this.addCollideNumbers(Collision.BOINKOBSTACLE);
+		this.setColliderNumber(Collision.PLAYER);
+		this.addCollideNumbers(Collision.BROWNIE);
+		this.addCollideNumbers(Collision.BOW);
+		super.setFloorZeroVelocity(true);
 	}
 	
 	private List<Item> itemContainer = new ArrayList<Item>();
 	
 	private Item activeItem;
 	
+	private boolean shotArrow;
+	
+	/**
+	 * @return the shotArrow
+	 */
+	public boolean isShotArrow() {
+		return shotArrow;
+	}
+
+	/**
+	 * @param shotArrow the shotArrow to set
+	 */
+	public void setShotArrow(boolean shotArrow) {
+		this.shotArrow = shotArrow;
+	}
+
 	public List<Item> getItemContainer() {
 		return itemContainer;
 	}
@@ -41,24 +58,23 @@ public class Player extends PhysicRectangle {
 	public void setPosition(Point p)
 	{
 		super.setPosition(p);
-		if(this.itemContainer.size() > 0)
-		{
-			int dir = this.getWidth();
-			if(this.movingLeft)
-				dir = -this.getWidth() + this.activeItem.getWidth()/2;
-			this.activeItem.setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
-		}
+		this.fixItemsPosition();
 	}
 	
 	public void translatePosition(int dx, int dy)
 	{
 		super.translatePosition(dx, dy);
+		this.fixItemsPosition();
+	}
+	
+	private void fixItemsPosition()
+	{
 		if(this.itemContainer.size() > 0)
 		{
-			int dir = this.getWidth();
+			int dir = this.getWidth() - 10;
 			if(this.movingLeft)
-				dir = -this.getWidth() + this.activeItem.getWidth()/2;
-			this.activeItem.setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
+				dir = -this.getWidth() + this.activeItem.getWidth()/2 + 10;
+			this.activeItem.setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 10));
 		}
 	}
 
@@ -104,7 +120,6 @@ public class Player extends PhysicRectangle {
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_AndreasLeft.png").toUri()));
-			     System.out.println("Back");
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
@@ -118,6 +133,8 @@ public class Player extends PhysicRectangle {
 	        }
 		}
 		this.setImage(img);
+		if(this.itemContainer.size() > 0)
+			this.activeItem.changeDirection(movingLeft);
 	}
 
 	/**
@@ -131,7 +148,14 @@ public class Player extends PhysicRectangle {
 	 * @param activeItem the activeItem to set
 	 */
 	public void setActiveItem(int i) {
+		if(this.itemContainer.size() < i + 1)
+			return;
+		
+		if(this.itemContainer.size() > 1)
+			this.activeItem.setShouldDraw(false);
+		
 		this.activeItem = this.itemContainer.get(i);
 		this.activeItem.setShouldDraw(true);
+		this.activeItem.changeDirection(this.movingLeft);
 	}
 }
