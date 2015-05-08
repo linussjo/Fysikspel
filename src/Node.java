@@ -229,7 +229,8 @@ public abstract class Node {
 		FLOOR,
 		ROOF,
 		RIGHTWALL,
-		LEFTWALL;
+		LEFTWALL,
+		BROWNIE;
 	}
 	
 }

@@ -2,6 +2,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileSystems;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -16,7 +18,20 @@ public class Player extends PhysicRectangle {
 		this.getCollideNumber(Collision.SOLIDOBSTACLE);
 		this.getCollideNumber(Collision.BOINKOBSTACLE);
 		this.setColliderNumber(Collision.PLAYER);
+		this.getCollideNumber(Collision.BROWNIE);
 	}
+	
+	private List<Item> itemContainer = new ArrayList<Item>();
+	
+	
+	public List<Item> getItemContainer() {
+		return itemContainer;
+	}
+	
+	public void addItem(Item i) {
+		this.itemContainer.add(i);
+	}
+
 
 	/**
 	 * @param inAir

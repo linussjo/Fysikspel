@@ -74,8 +74,9 @@ public class Game extends JFrame {
 		rightWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(rightWall);
 
-
-
+		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 70, 30, 30, 1);
+		kladdkaka.setColliderNumber(Node.Collision.BROWNIE);
+		this.nodes.add(kladdkaka);
 	}
 
 	public void run(){
@@ -144,7 +145,15 @@ public class Game extends JFrame {
 				}
 				else // no collision with obstacle
 				{
-					
+					if (node1.intersects(node2)){
+						if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
+							if (node2 instanceof Brownie){
+								player.addItem((Brownie)node2);
+								System.out.println(((Brownie) node2).getName());
+							}
+						}
+					}
+										
 				}
 				
 			}

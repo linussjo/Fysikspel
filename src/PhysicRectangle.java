@@ -34,7 +34,7 @@ public class PhysicRectangle extends Rectangle {
 		this.inAir = inAir;
 	}
 
-	public PhysicRectangle(int x, int y, int width, int height, int mass) {
+	public PhysicRectangle(int x, int y, int width, int height, float mass) {
 		super(x, y, width, height, mass);
 		// TODO Auto-generated constructor stub
 	}
