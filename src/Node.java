@@ -110,6 +110,12 @@ public abstract class Node {
 	 */
 	private boolean hasPhysics;
 	/**
+	 * @param hasPhysics the hasPhysics to set
+	 */
+	protected void setHasPhysics(boolean hasPhysics) {
+		this.hasPhysics = hasPhysics;
+	}
+	/**
 	 * Returns hasPhysics is true or false.
 	 * @return boolean, hasPhysics.
 	 */

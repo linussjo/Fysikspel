@@ -60,12 +60,16 @@ public class PhysicRectangle extends Rectangle {
 							pr.setInAir(false);
 							pr.setDidObjectIntersectFloor(true);
 
-							//med boink, annars s√§tt velY till 0
+							//med boink, annars s‰tt velY till 0
 							float vy = 0;
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vy = (float) ((0.78)*pr.getVelocity().getY()*(-1));
+								vy = (float) ((pr.getMass() - r.getMass())/(pr.getMass() + r.getMass()) * pr.getVelocity().getY());
+								
+								if(r instanceof Obstacle)
+									vy *= ((Obstacle)r).getBoinkFactor(); // dont want all the of speed to be left if it is an obstacle
+								//vy = (float) ((0.78)*pr.getVelocity().getY()*(-1));
 								vx = pr.getVelocity().getX();
 								if(vy >= -100)
 								{
@@ -86,11 +90,12 @@ public class PhysicRectangle extends Rectangle {
 						else
 						{
 
-							//med boink, annars s√§tt velY till 0
+							//med boink, annars s‰tt velY till 0
 							float vy = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vy = (int)((0.9)*(pr.getVelocity().getY()*(-1)));
+								vy = (float) ((pr.getMass() - r.getMass())/(pr.getMass() + r.getMass()) * pr.getVelocity().getY());
+								//vy = (int)((0.9)*(pr.getVelocity().getY()*(-1)));
 								if(vy <= 60)
 								{
 									vy = 0;
@@ -110,7 +115,12 @@ public class PhysicRectangle extends Rectangle {
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vx = (int)((0.8)*(pr.getVelocity().getX()*(-1)));
+								
+								vx = (float) ((pr.getMass() - r.getMass())/(pr.getMass() + r.getMass()) * pr.getVelocity().getX());
+								
+								if(r instanceof Obstacle)
+									vx *= ((Obstacle)r).getBoinkFactor(); // dont want all the of speed to be left if it is an obstacle
+									
 								if(vx >= 60)
 								{
 									vx = 0;
@@ -127,7 +137,11 @@ public class PhysicRectangle extends Rectangle {
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 							{
-								vx = (int)((0.8)*(pr.getVelocity().getX()*(-1)));
+								vx = (float) ((pr.getMass() - r.getMass())/(pr.getMass() + r.getMass()) * pr.getVelocity().getX());
+								
+								if(r instanceof Obstacle)
+									vx *= ((Obstacle)r).getBoinkFactor(); // dont want all the of speed to be left if it is an obstacle
+								
 								if(vx <= -60)
 								{
 									vx = 0;
@@ -153,5 +167,6 @@ public class PhysicRectangle extends Rectangle {
 		
 		return false;
 	}
+
 
 }
