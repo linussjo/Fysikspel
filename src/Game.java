@@ -61,11 +61,18 @@ public class Game extends JFrame {
 		this.player = n;
 
 		final int inventorySpace = 100;
+		
+		this.ob = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-250, 50, 250, 1);
+		Obstacle ob2 = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-300, 140, 50, 1);
+		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.nodes.add(ob2);
 
 		Rectangle floor = new Rectangle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20);
 		floor.setColor(Color.YELLOW);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor);
+		
+		this.nodes.add(ob);
 
 		Rectangle floor2 = new Rectangle(200, 500-inventorySpace, 330, 1);
 		floor2.setColor(Color.BLACK);
@@ -84,7 +91,7 @@ public class Game extends JFrame {
 
 		Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT-inventorySpace);
 		rightWall.setColor(Color.YELLOW);
-		rightWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
+		rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(rightWall);
 
 		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
@@ -97,11 +104,6 @@ public class Game extends JFrame {
 
 		Button butt = new Button(20, 350, 20, 50);
 		this.nodes.add(butt);
-
-		this.ob = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-250, 50, 250, 1);
-		Obstacle ob2 = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-300, 140, 50, 1);
-		this.nodes.add(ob);
-		this.nodes.add(ob2);
 	}
 
 	public void run(){
