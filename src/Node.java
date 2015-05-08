@@ -6,6 +6,20 @@ import java.util.Set;
 
 public abstract class Node {
 	
+	private boolean shouldDraw = true;
+	
+	/**
+	 * @return the shouldDraw
+	 */
+	public boolean shouldDraw() {
+		return shouldDraw;
+	}
+	/**
+	 * @param shouldDraw the shouldDraw to set
+	 */
+	public void setShouldDraw(boolean shouldDraw) {
+		this.shouldDraw = shouldDraw;
+	}
 	/**
 	 * The nodes position in x and y
 	 */

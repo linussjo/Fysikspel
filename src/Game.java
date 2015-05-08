@@ -80,6 +80,11 @@ public class Game extends JFrame {
 		kladdkaka.setColliderNumber(Node.Collision.BROWNIE);
 		this.nodes.add(kladdkaka);
 		kladdkaka.applyVelocity(new Velocity(350, -350));
+		
+		Brownie kladdkaka2 = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
+		kladdkaka2.setColliderNumber(Node.Collision.BROWNIE);
+		this.nodes.add(kladdkaka2);
+		kladdkaka2.applyVelocity(new Velocity(250, 250));
 	}
 
 	public void run(){
@@ -155,6 +160,7 @@ public class Game extends JFrame {
 							if (node2 instanceof Brownie){
 								if(!player.getItemContainer().contains(node2))
 								{
+									node2.setShouldDraw(false);
 									player.addItem((Brownie)node2);
 									node2.setHasPhysics(false);
 								}

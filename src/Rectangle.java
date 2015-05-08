@@ -118,15 +118,18 @@ public class Rectangle extends Node {
 	 */
 	public void draw(Graphics g)
 	{
-		if(this.image != null)
+		if(this.shouldDraw())
 		{
-			g.setColor(this.color);
-			g.drawImage(this.image, this.getPosition().x, this.getPosition().y, this.width, this.height, null);
-		}
-		else
-		{
-			g.setColor(this.color);
-			g.fillRect(this.getPosition().x, this.getPosition().y, this.width, this.height);
+			if(this.image != null)
+			{
+				g.setColor(this.color);
+				g.drawImage(this.image, this.getPosition().x, this.getPosition().y, this.width, this.height, null);
+			}
+			else
+			{
+				g.setColor(this.color);
+				g.fillRect(this.getPosition().x, this.getPosition().y, this.width, this.height);
+			}
 		}
 	}
 

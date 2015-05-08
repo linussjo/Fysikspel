@@ -33,7 +33,9 @@ public class Player extends PhysicRectangle {
 	public void addItem(Item i) {
 		this.itemContainer.add(i);
 		if(this.itemContainer.size() == 1)
-			this.activeItem = i;
+		{
+			this.setActiveItem(0);	
+		}
 	}
 	
 	public void setPosition(Point p)
@@ -130,5 +132,6 @@ public class Player extends PhysicRectangle {
 	 */
 	public void setActiveItem(int i) {
 		this.activeItem = this.itemContainer.get(i);
+		this.activeItem.setShouldDraw(true);
 	}
 }
