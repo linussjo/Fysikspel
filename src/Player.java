@@ -24,6 +24,7 @@ public class Player extends PhysicRectangle {
 	
 	private List<Item> itemContainer = new ArrayList<Item>();
 	
+	private Item activeItem;
 	
 	public List<Item> getItemContainer() {
 		return itemContainer;
@@ -31,6 +32,8 @@ public class Player extends PhysicRectangle {
 	
 	public void addItem(Item i) {
 		this.itemContainer.add(i);
+		if(this.itemContainer.size() == 1)
+			this.activeItem = i;
 	}
 	
 	public void setPosition(Point p)
@@ -38,10 +41,10 @@ public class Player extends PhysicRectangle {
 		super.setPosition(p);
 		if(this.itemContainer.size() > 0)
 		{
-			int dir = 15;
+			int dir = this.getWidth();
 			if(this.movingLeft)
-				dir = -15;
-			this.itemContainer.get(0).setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
+				dir = -this.getWidth() + this.activeItem.getWidth()/2;
+			this.activeItem.setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
 		}
 	}
 	
@@ -50,10 +53,10 @@ public class Player extends PhysicRectangle {
 		super.translatePosition(dx, dy);
 		if(this.itemContainer.size() > 0)
 		{
-			int dir = 45;
+			int dir = this.getWidth();
 			if(this.movingLeft)
-				dir = -45 + this.itemContainer.get(0).getWidth()/2;
-			this.itemContainer.get(0).setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
+				dir = -this.getWidth() + this.activeItem.getWidth()/2;
+			this.activeItem.setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
 		}
 	}
 
@@ -113,5 +116,19 @@ public class Player extends PhysicRectangle {
 	        }
 		}
 		this.setImage(img);
+	}
+
+	/**
+	 * @return the activeItem
+	 */
+	public Item getActiveItem() {
+		return activeItem;
+	}
+
+	/**
+	 * @param activeItem the activeItem to set
+	 */
+	public void setActiveItem(int i) {
+		this.activeItem = this.itemContainer.get(i);
 	}
 }
