@@ -57,11 +57,11 @@ public class Game extends JFrame {
 		this.nodes.add(floor);
 		
 		Rectangle floor2 = new Rectangle(200, 500-inventorySpace, 330, 1);
-		floor2.setColor(Color.YELLOW);
+		floor2.setColor(Color.BLACK);
 		floor2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.nodes.add(floor2);
 		
-		Rectangle obstacle = new Rectangle(600, 500-inventorySpace, 300, 55);
+		Obstacle obstacle = new Obstacle(600, 500-inventorySpace, 300, 55, 1);
 		obstacle.setColor(Color.YELLOW);
 		obstacle.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(obstacle);
@@ -76,9 +76,10 @@ public class Game extends JFrame {
 		rightWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		this.nodes.add(rightWall);
 
-		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 70-inventorySpace, 30, 30, 1);
+		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
 		kladdkaka.setColliderNumber(Node.Collision.BROWNIE);
 		this.nodes.add(kladdkaka);
+		kladdkaka.applyVelocity(new Velocity(350, -350));
 	}
 
 	public void run(){
@@ -114,6 +115,7 @@ public class Game extends JFrame {
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 
+			
 			player.whichDirectionImage(movingLeft);
 			player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
 			player.setDidObjectIntersectFloor(false);
@@ -151,9 +153,12 @@ public class Game extends JFrame {
 					if (node1.intersects(node2)){
 						if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
 							if (node2 instanceof Brownie){
-								player.addItem((Brownie)node2);
-								node2.setHasPhysics(false);
-								node2.setPosition(new Point(100, Component.HEIGHT-60));
+								if(!player.getItemContainer().contains(node2))
+								{
+									player.addItem((Brownie)node2);
+									node2.setHasPhysics(false);
+								}
+								//node2.setPosition(new Point(100, Component.HEIGHT-60));
 								//System.out.println(((Brownie) node2).getName());
 								
 							}

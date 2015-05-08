@@ -1,3 +1,4 @@
+import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +31,30 @@ public class Player extends PhysicRectangle {
 	
 	public void addItem(Item i) {
 		this.itemContainer.add(i);
+	}
+	
+	public void setPosition(Point p)
+	{
+		super.setPosition(p);
+		if(this.itemContainer.size() > 0)
+		{
+			int dir = 15;
+			if(this.movingLeft)
+				dir = -15;
+			this.itemContainer.get(0).setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
+		}
+	}
+	
+	public void translatePosition(int dx, int dy)
+	{
+		super.translatePosition(dx, dy);
+		if(this.itemContainer.size() > 0)
+		{
+			int dir = 45;
+			if(this.movingLeft)
+				dir = -45 + this.itemContainer.get(0).getWidth()/2;
+			this.itemContainer.get(0).setPosition(new Point(this.getPosition().x + dir, this.getPosition().y + 15));
+		}
 	}
 
 	private boolean movingLeft = false;
