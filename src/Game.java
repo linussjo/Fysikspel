@@ -64,6 +64,7 @@ public class Game extends JFrame {
 
 	public void run(){
 		Component component = new Component(this);
+		this.setUndecorated(true);
 		lastUpdate = System.currentTimeMillis();
 
 		this.setLayout(new BorderLayout());
@@ -190,5 +191,11 @@ public class Game extends JFrame {
 			movingRight = val;
 			break;
 		}
+	}
+	
+	public void quit()
+	{
+		this.dispose();
+		System.exit(0);
 	}
 }

@@ -20,8 +20,8 @@ import javax.swing.KeyStroke;
 public class Component extends JComponent {
 	private Game game;
 	
-	public static final int HEIGHT = 720;
-	public static final int WIDTH = 1280;
+	public static final int HEIGHT = 1080;
+	public static final int WIDTH = 1920;
 	private Font font;
 
 	public Component(Game game) {
@@ -103,6 +103,13 @@ public class Component extends JComponent {
             	
         });
         
+        getInputMap().put(KeyStroke.getKeyStroke("ESCAPE"), "ESCAPE");
+        getActionMap().put("ESCAPE", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.quit();
+            }
+        });
         
 	    getInputMap().put(KeyStroke.getKeyStroke("UP"), "UP");
         getActionMap().put("UP", new AbstractAction() {

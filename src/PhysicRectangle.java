@@ -219,14 +219,6 @@ public abstract class PhysicRectangle extends Rectangle {
 				}
 			}
 		}
-		if(pr.getPosition().getY() + pr.getHeight() - r.getPosition().getY() == 0)
-		{
-			if(pr.getPosition().getX() < r.getPosition().getX() + r.getWidth() && pr.getPosition().getX() + pr.getWidth() > r.getPosition().getX())
-			{
-				pr.setDidObjectIntersectFloor(true);
-			}
-		}
-		
 		if(!pr.isDidObjectIntersectFloor())
 		{
 			if(pr.getPosition().getY() + pr.getHeight() - r.getPosition().getY() != 1)
