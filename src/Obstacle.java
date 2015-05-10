@@ -1,5 +1,7 @@
+import java.awt.Point;
 
-public class Obstacle extends Rectangle {
+
+public class Obstacle extends PhysicRectangle{
 	public float boinkFactor;
 	
 	/**
@@ -21,6 +23,11 @@ public class Obstacle extends Rectangle {
 		this.setHasPhysics(false);
 		this.setColliderNumber(Collision.BOINKOBSTACLE);
 		this.boinkFactor = boinkFactor;
+		
+	}
+
+	@Override
+	public void collide(Rectangle r, double updateTime) {
 		
 	}
 

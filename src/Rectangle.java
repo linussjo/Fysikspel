@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
  * @author BG5
  *
  */
-public class Rectangle extends Node {
+public abstract class Rectangle extends Node {
 	/**
 	 * The width of the rectangle.
 	 */
@@ -144,5 +144,7 @@ public class Rectangle extends Node {
 			}
 		}
 	}
+	
+	public abstract void collide(Rectangle r, double updateTime);
 
 }

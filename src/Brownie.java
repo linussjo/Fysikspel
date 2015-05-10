@@ -29,4 +29,10 @@ public class Brownie extends Item {
 	}
 
 	public boolean isKladdkaka = true;
+
+	@Override
+	public void collide(Rectangle r, double updateTime) {
+		// TODO Auto-generated method stub
+		
+	}
 }

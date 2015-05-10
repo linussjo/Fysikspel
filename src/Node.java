@@ -1,12 +1,16 @@
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
 public abstract class Node {
 	
 	private boolean shouldDraw = true;
+	
+	private List<Notifiable> listernersList = new ArrayList<Notifiable>();
 	
 	/**
 	 * @return the shouldDraw
@@ -56,11 +60,20 @@ public abstract class Node {
 	 * The velocity of the node
 	 */
 	private Velocity velocity;
+	
+	private Velocity oldVelocity;
+	/**
+	 * @return the oldVelocity
+	 */
+	protected Velocity getOldVelocity() {
+		return oldVelocity;
+	}
 	/**
 	 * sets the new given velocity to the node
 	 * @param Velocity, velocity
 	 */
 	public void setVelocity(Velocity velocity) {
+		this.oldVelocity = new Velocity(this.velocity.getX(), this.velocity.getY());
 		this.velocity = velocity;
 	}
 	/**
@@ -172,6 +185,7 @@ public abstract class Node {
 	 * @param Velocity, v.
 	 */
 	public void applyVelocity(Velocity v){
+		this.oldVelocity = new Velocity(this.velocity.getX(), this.velocity.getY());
 		this.velocity = Velocity.combineVelocities(this.velocity, v);
 	}
 	/**
@@ -241,6 +255,19 @@ public abstract class Node {
 	 */
 	public Point getOldPosition() {
 		return oldPosition;
+	}
+	
+	public void registerListerner(Notifiable n)
+	{
+		this.listernersList.add(n);
+	}
+	
+	protected void notifyListerner()
+	{
+		for(Notifiable n : this.listernersList)
+		{
+			n.notify(Reason.BUTTON);
+		}
 	}
 
 	public enum Collision{

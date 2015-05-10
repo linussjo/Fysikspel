@@ -25,14 +25,14 @@ public class Game extends JFrame {
 	}
 
 	private double lastUpdate;
-	private Physics physics;
+	static public Physics physics;
 
+	public final static int inventorySpace = 100;
 	private boolean movingLeft;
 	private boolean movingRight;
 	private boolean movingUp;
 
 	private Player player;
-
 
 	/**
 	 * @return the player
@@ -40,7 +40,7 @@ public class Game extends JFrame {
 	public Player getPlayer() {
 		return player;
 	}
-	private Obstacle ob;
+	
 	public Game()
 	{
 		super("Fysikspel");
@@ -59,51 +59,7 @@ public class Game extends JFrame {
 		this.nodes.add(n);
 
 		this.player = n;
-
-		final int inventorySpace = 100;
 		
-		this.ob = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-250, 50, 250, 1);
-		Obstacle ob2 = new Obstacle(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-300, 140, 50, 1);
-		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.nodes.add(ob2);
-
-		Rectangle floor = new Rectangle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20);
-		floor.setColor(Color.YELLOW);
-		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.nodes.add(floor);
-		
-		this.nodes.add(ob);
-
-		Rectangle floor2 = new Rectangle(200, 500-inventorySpace, 330, 1);
-		floor2.setColor(Color.BLACK);
-		floor2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.nodes.add(floor2);
-
-		Obstacle obstacle = new Obstacle(600, 500-inventorySpace, 300, 55, 1);
-		obstacle.setColor(Color.YELLOW);
-		obstacle.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.nodes.add(obstacle);
-
-		Rectangle leftWall = new Rectangle(0, 0, 20, Component.HEIGHT-inventorySpace);
-		leftWall.setColor(Color.YELLOW);
-		leftWall.setColliderNumber(Node.Collision.BOINKOBSTACLE);
-		this.nodes.add(leftWall);
-
-		Rectangle rightWall = new Rectangle(Component.WIDTH-20, 0, 20, Component.HEIGHT-inventorySpace);
-		rightWall.setColor(Color.YELLOW);
-		rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.nodes.add(rightWall);
-
-		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 500-inventorySpace, 30, 30, 1);
-		this.nodes.add(kladdkaka);
-		kladdkaka.applyVelocity(new Velocity(350, -350));
-
-		Bow bow = new Bow("Andreas båge", 400, Component.HEIGHT - 500-inventorySpace, 30, 30);
-		this.nodes.add(bow);
-		bow.applyVelocity(new Velocity(250, 250));
-
-		Button butt = new Button(20, 350, 20, 50);
-		this.nodes.add(butt);
 	}
 
 	public void run(){
@@ -146,6 +102,7 @@ public class Game extends JFrame {
 			
 			player.setHasShotArrow(true);
 			
+			
 			AbstractAction doOneStep = new AbstractAction() {
     			@Override
     			public void actionPerformed(ActionEvent e) {
@@ -162,9 +119,13 @@ public class Game extends JFrame {
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 
-
+			int vy = (int) player.getVelocity().getY();
+			if(!player.isInAir())
+				vy = 0;
+			
 			player.whichDirectionImage(movingLeft);
-			player.setVelocity(new Velocity(vx, player.getVelocity().getY()));
+			player.setVelocity(new Velocity(vx, vy));
+			
 			player.setDidObjectIntersectFloor(false);
 		}
 		if (movingUp) {
@@ -189,48 +150,25 @@ public class Game extends JFrame {
 			{
 				if(node1 == node2)
 					continue;
-
-				if(pr.collisionCheck((Rectangle)node2, updateTime)) // collision with obstacle
-				{
-					if(pr instanceof Arrow)
-						pr.setHasPhysics(false);
-
-				}
-				else // no collision with obstacle
-				{
-					if(node1.isCollidable() && node2.isCollidable())
-					{
-						if (node1.intersects(node2)){
-							if (node1.getCollideNumbers().contains(node2.getColliderNumber())){
-								/**
-								 * Code here to make your own code for what should happen when the node2 and node1 collides
-								 * Node1 is a moving object because it is affected by physics
-								 * Node2 don't necessary have to be affected by gravity.  
-								 */
-								if (node2 instanceof Item)
-								{
-									if(!player.getItemContainer().contains(node2))
-									{
-										node2.setShouldDraw(false);
-										player.addItem((Item)node2);
-										node2.setHasPhysics(false);
-									}
-								}
-							}
-							else if(node2.getCollideNumbers().contains(node1.getColliderNumber()))
-							{
-								if(node2 instanceof Button)
-								{
-									ob.setPosition(new Point(ob.getPosition().x, ob.getPosition().y - ob.getHeight()));
-									node2.setCollidable(false);
-								}
-							}
-						}
-					}				
-				}
+				
+				this.checkCollide(pr, node2, updateTime);
 			}
 		}
 	}
+	public void checkCollide(PhysicRectangle pr, Node node2, double updateTime)
+	{
+		if(pr.isCollidable() && node2.isCollidable())
+		{
+			if (pr.intersects(node2))
+			{
+				pr.collide((Rectangle)node2, updateTime);
+				((Rectangle)node2).collide(pr, updateTime);
+			}
+		}
+		if(!pr.isTakeCareOfCollision())
+			pr.collisionCheck((Rectangle)node2, updateTime); // collision with obstacle
+	}
+	
 	/**
 	 * Adds a node to the node list
 	 * @param Node, n

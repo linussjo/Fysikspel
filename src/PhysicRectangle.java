@@ -2,12 +2,45 @@ import java.awt.Point;
 
 
 
-public class PhysicRectangle extends Rectangle {
+public abstract class PhysicRectangle extends Rectangle {
+	
+	private boolean takeCareOfCollision = false;
+	
 	private boolean floorZeroVelocity = false;
 	
 	private boolean inAir = false;
 
-	boolean didObjectIntersectFloor = false;
+	private boolean didObjectIntersectFloor = false;
+	
+	private boolean didObjectIntersectWall = false;
+	/**
+	 * @return the didObjectIntersectWall
+	 */
+	public boolean isDidObjectIntersectWall() {
+		return didObjectIntersectWall;
+	}
+
+	/**
+	 * @param didObjectIntersectWall the didObjectIntersectWall to set
+	 */
+	public void setDidObjectIntersectWall(boolean didObjectIntersectWall) {
+		this.didObjectIntersectWall = didObjectIntersectWall;
+	}
+
+	/**
+	 * @return the takeCareOfCollision
+	 */
+	public boolean isTakeCareOfCollision() {
+		return takeCareOfCollision;
+	}
+
+	/**
+	 * @param takeCareOfCollision the takeCareOfCollision to set
+	 */
+	public void setTakeCareOfCollision(boolean takeCareOfCollision) {
+		this.takeCareOfCollision = takeCareOfCollision;
+	}
+
 	/**
 	 * @return the floorZeroVelocity
 	 */
@@ -69,15 +102,17 @@ public class PhysicRectangle extends Rectangle {
 				{      
 					int y1 = pr.getOldPosition().y + pr.getHeight();
 					int y2 = pr.getOldPosition().y;
+					int y3 = pr.getPosition().y + pr.getHeight();
 					int x = pr.getOldPosition().x;
-
-					if(pr.isInAir() && y1 <= r.getPosition().y || y2 >= r.getPosition().y + r.getHeight() && !(x  >= r.getPosition().x + r.getWidth()))
+					
+					if(pr.isInAir() && y1 <= r.getPosition().y || y2 >= r.getPosition().y + r.getHeight())
 					{
 						if(pr.getVelocity().getY()>=0)
 						{
 							
 							pr.setInAir(false);
 							pr.setDidObjectIntersectFloor(true);
+							
 
 							//med boink, annars s�tt velY till 0
 							float vy = 0;
@@ -105,8 +140,7 @@ public class PhysicRectangle extends Rectangle {
 							}
 							if(!this.floorZeroVelocity)
 								vx = pr.getVelocity().getX();
-							else if(pr instanceof MoveableBox)
-								vx = pr.getVelocity().getX();
+
 							
 							pr.setVelocity(new Velocity(vx, vy));
 							pr.setPosition(new Point(pr.getPosition().x, r.getPosition().y - pr.getHeight()));
@@ -131,6 +165,7 @@ public class PhysicRectangle extends Rectangle {
 							pr.setVelocity(new Velocity(0, vy));
 							pr.setPosition(new Point(pr.getPosition().x, r.getPosition().y + r.getHeight()));
 						}
+						this.didObjectIntersectWall = false;
 					}
 					else
 					{
@@ -156,7 +191,7 @@ public class PhysicRectangle extends Rectangle {
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x - pr.getWidth(), pr.getPosition().y));
 						}
-						else if(pr.getVelocity().getX()<0)
+						else  if(pr.getVelocity().getX()<0)
 						{
 							float vx = 0;
 							if(r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
@@ -177,16 +212,33 @@ public class PhysicRectangle extends Rectangle {
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
 							pr.setPosition(new Point(r.getPosition().x + r.getWidth(), pr.getPosition().y));
 						}
+						this.didObjectIntersectWall = true;
 					}
 					return true;
 
 				}
 			}
 		}
+		if(pr.getPosition().getY() + pr.getHeight() - r.getPosition().getY() == 0)
+		{
+			if(pr.getPosition().getX() < r.getPosition().getX() + r.getWidth() && pr.getPosition().getX() + pr.getWidth() > r.getPosition().getX())
+			{
+				pr.setDidObjectIntersectFloor(true);
+			}
+		}
+		
 		if(!pr.isDidObjectIntersectFloor())
 		{
-			pr.setInAir(true);
-			pr.setDidObjectIntersectFloor(false);
+			if(pr.getPosition().getY() + pr.getHeight() - r.getPosition().getY() != 1)
+			{
+				pr.setInAir(true);
+				pr.setDidObjectIntersectFloor(false);
+			}
+			else
+			{
+				if(pr.floorZeroVelocity)
+					pr.setVelocity(new Velocity(0, pr.getVelocity().getY()));
+			}
 		}
 		
 		return false;

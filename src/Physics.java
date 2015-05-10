@@ -25,7 +25,10 @@ public class Physics {
 		
 		n.setVelocity(new Velocity(vx,vy));
 		
-		n.translatePosition((int)(vx*time), (int)(vy*time));
+		int x = (int) Math.round((vx*time));
+		int y = (int) Math.round((vy*time));
+		
+		n.translatePosition(x, y);
 	}
 	
 	
@@ -33,9 +36,8 @@ public class Physics {
 	{
 		float vy = (float) (n.getVelocity().getY() + this.gravitation*time + n.getAcceleration().getY()*time);
 		
-		if(n instanceof PhysicRectangle)
-			if(!((PhysicRectangle)n).isInAir())
-				vy = (float) (n.getVelocity().getY());
+		if(!n.isInAir())
+			vy = (float) (n.getVelocity().getY());
 		
 		return vy;
 	}
@@ -44,7 +46,7 @@ public class Physics {
 	{
 		float vx = (float)(n.getVelocity().getX() + n.getAcceleration().getX()*time);
 		
-		if(vx != 0 && !n.didObjectIntersectFloor)
+		if(vx != 0 && !n.isDidObjectIntersectFloor())
 		{
 			if(n.getVelocity().getX() > 0)
 			{
@@ -67,17 +69,17 @@ public class Physics {
 	{
 		double m1 = r1.getMass();
 		double m2 = r2.getMass();
-		float vi1 = r1.getVelocity().getX();
-		float vi2 = r2.getVelocity().getX();
+		float vi1 = r1.getOldVelocity().getX();
+		float vi2 = r2.getOldVelocity().getX();
 		
 		float vfx1 =   (float) ((m1 -m2)*vi1/(m1 + m2) + 2*m2*vi2/(m1 + m2));
 		float vfx2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));
 		
-		/*vi1 = r1.getVelocity().getY();
-		vi2 = r2.getVelocity().getY();
+		vi1 = r1.getOldVelocity().getY();
+		vi2 = r2.getOldVelocity().getY();
 		
 		float vfy1 =   (float) ((m1 -m2)*vi1/(m1 + m2) + 2*m2*vi2/(m1 + m2));
-		float vfy2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));*/
+		float vfy2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));
 		
 		if(!(r1 instanceof Player))
 		{

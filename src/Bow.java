@@ -30,4 +30,10 @@ public class Bow extends Item {
 		this.setImgUse(imgL);
 	}
 
+	@Override
+	public void collide(Rectangle r, double updateTime) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

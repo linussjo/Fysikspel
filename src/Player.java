@@ -34,6 +34,7 @@ public class Player extends PhysicRectangle {
 		this.setColliderNumber(Collision.PLAYER);
 		this.addCollideNumbers(Collision.BROWNIE);
 		this.addCollideNumbers(Collision.BOW);
+		this.addCollideNumbers(Collision.BUTTON);
 		super.setFloorZeroVelocity(true);
 	}
 	
@@ -173,5 +174,23 @@ public class Player extends PhysicRectangle {
 		this.activeItem = this.itemContainer.get(i);
 		this.activeItem.setShouldDraw(true);
 		this.activeItem.changeDirection(this.movingLeft);
+	}
+
+	@Override
+	public void collide(Rectangle r, double updateTime) {
+		if(r instanceof Item)
+		{
+			if(!this.getItemContainer().contains(r))
+			{
+				r.setShouldDraw(false);
+				this.addItem((Item)r);
+				r.setHasPhysics(false);
+			}
+		}
+		else if(r.getColliderNumber() == Node.Collision.BUTTON)
+		{
+			r.setCollidable(false);
+		}
+		
 	}
 }

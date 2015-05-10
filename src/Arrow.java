@@ -17,6 +17,7 @@ public class Arrow extends PhysicRectangle {
 		this.setColliderNumber(Collision.ARROW);
 		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
 		this.addCollideNumbers(Collision.BOINKOBSTACLE);
+		this.addCollideNumbers(Collision.BUTTON);
 		try {
 		     this.setImage(ImageIO.read(new File(FileSystems.getDefault().getPath(
 	               "data", "Arrow_Up_Left.png").toUri())));
@@ -52,7 +53,7 @@ public class Arrow extends PhysicRectangle {
 		            if(this.getVelocity().getX() != 0)
 		            	this.rotate += Math.atan(this.getVelocity().getY()/this.getVelocity().getX());
 		            else 
-		            	this.rotate = -Math.PI;
+		            	this.rotate = Math.PI;
 	            }
 	            at.rotate(rotate);
 	            
@@ -70,6 +71,15 @@ public class Arrow extends PhysicRectangle {
 	            g2d.rotate(0);
 			}
 		}
+	}
+
+	@Override
+	public void collide(Rectangle r, double updateTime) {
+		if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE)
+		{
+			this.setHasPhysics(false);
+		}
+		
 	}
 
 }
