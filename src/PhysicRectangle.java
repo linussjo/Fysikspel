@@ -221,16 +221,8 @@ public abstract class PhysicRectangle extends Rectangle {
 		}
 		if(!pr.isDidObjectIntersectFloor())
 		{
-			if(pr.getPosition().getY() + pr.getHeight() - r.getPosition().getY() != 1)
-			{
-				pr.setInAir(true);
-				pr.setDidObjectIntersectFloor(false);
-			}
-			else
-			{
-				if(pr.floorZeroVelocity)
-					pr.setVelocity(new Velocity(0, pr.getVelocity().getY()));
-			}
+			pr.setInAir(true);
+			pr.setDidObjectIntersectFloor(false);
 		}
 		
 		return false;
