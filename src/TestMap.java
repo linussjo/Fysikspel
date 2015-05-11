@@ -1,14 +1,16 @@
 import java.awt.Color;
 
 
+
 public class TestMap extends Map {
 	
 	public TestMap()
 	{
 		super();
-		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-260, 50, 249, 0);
-		Obstacle ob2 = new Obstacle(Component.WIDTH-100, Component.HEIGHT-20-inventorySpace-300, 90, 50, 1);
+		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-310, 50, 300, 0);
+		Obstacle ob2 = new Obstacle(Component.WIDTH-110, Component.HEIGHT-20-inventorySpace-300, 90, 50, 1);
 		ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
 		this.addNode(ob2);
 

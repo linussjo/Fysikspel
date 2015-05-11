@@ -95,6 +95,8 @@ public abstract class PhysicRectangle extends Rectangle {
 	{
 		if(v.getX() != 0)
 			this.setDidObjectIntersectFloor(false);
+		if(v.getY() != 0)
+			this.setDidObjectIntersectFloor(false);
 		
 		super.setVelocity(v);		
 	}
