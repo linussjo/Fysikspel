@@ -25,7 +25,7 @@ public class Button extends Rectangle {
     			}
     		};
     		
-    		javax.swing.Timer timer = new javax.swing.Timer(500, doOneStep);
+    		javax.swing.Timer timer = new javax.swing.Timer(1000, doOneStep);
     		timer.setRepeats(false);
     		timer.start();
 		}

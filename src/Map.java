@@ -98,14 +98,12 @@ public abstract class Map {
 			player.whichDirectionImage(movingLeft);
 			player.setVelocity(new Velocity(vx, vy));
 
-			player.setDidObjectIntersectFloor(false);
 		}
 		if (movingUp) {
 			//dy = -tmpY;
 			if(!player.isInAir())
 			{
 				player.setVelocity(new Velocity(player.getVelocity().getX(),-800));
-				player.setDidObjectIntersectFloor(false);
 			}
 		}
 

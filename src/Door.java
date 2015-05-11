@@ -18,7 +18,9 @@ public class Door extends Obstacle implements Notifiable{
 		{
 			//this.setPosition(new Point(this.getPosition().x,  this.getPosition().y + this.getHeight()));
 			this.setHasPhysics(true);
-			this.setVelocity(new Velocity(0, -100));
+			this.setInAir(true);
+			this.setVelocity(new Velocity(0, -500));
+			this.setAcceleration(new Acceleration(0,-800));
 		}
 		
 	}

@@ -90,7 +90,15 @@ public abstract class PhysicRectangle extends Rectangle {
 		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
 		this.addCollideNumbers(Collision.BOINKOBSTACLE);
 	}
-
+	
+	public void setVelocity(Velocity v)
+	{
+		if(v.getX() != 0)
+			this.setDidObjectIntersectFloor(false);
+		
+		super.setVelocity(v);		
+	}
+	
 	public boolean collisionCheck(Rectangle r, double updateTime)
 	{
 		PhysicRectangle pr = this;
@@ -219,6 +227,7 @@ public abstract class PhysicRectangle extends Rectangle {
 				}
 			}
 		}
+		
 		if(!pr.isDidObjectIntersectFloor())
 		{
 			pr.setInAir(true);

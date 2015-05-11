@@ -9,7 +9,6 @@ public class TestMap extends Map {
 		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-260, 50, 249, 0);
 		Obstacle ob2 = new Obstacle(Component.WIDTH-100, Component.HEIGHT-20-inventorySpace-300, 90, 50, 1);
 		ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		ob1.setVelocity(new Velocity(0,-150));
 		
 		this.addNode(ob2);
 
