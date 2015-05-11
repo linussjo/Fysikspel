@@ -18,14 +18,14 @@ import javax.swing.KeyStroke;
 
 
 public class Component extends JComponent {
-	private Game game;
+	private Map map;
 	
-	public static final int HEIGHT = 1080;
-	public static final int WIDTH = 1920;
+	public static final int HEIGHT = 720;
+	public static final int WIDTH = 1280;
 	private Font font;
 
-	public Component(Game game) {
-        this.game = game;
+	public Component(Map map) {
+        this.map = map;
         this.font = new Font("Helvetica", Font.PLAIN, 12);
         setInput();
      }
@@ -43,7 +43,7 @@ public class Component extends JComponent {
         /**
          * Draw all the Node from game objects list Nodes
          */
-        for(Node n : this.game.getNodes())
+        for(Node n : this.map.getNodes())
         {
         	n.draw(g2);
         }
@@ -53,7 +53,7 @@ public class Component extends JComponent {
     	g2.setFont(this.font);
     	g2.drawString("Inventory:", 10, this.HEIGHT - 92);
         
-        Player player = ((Player)this.game.getNodes().get(0));
+        Player player = ((Player)this.map.getNodes().get(0));
         for(Item i : player.getItemContainer())
         {
         	if(player.getActiveItem() == i)
@@ -78,7 +78,7 @@ public class Component extends JComponent {
         getActionMap().put("1", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.getPlayer().setActiveItem(0);
+                map.getPlayer().setActiveItem(0);
             }
         });
         
@@ -86,7 +86,7 @@ public class Component extends JComponent {
         getActionMap().put("2", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.getPlayer().setActiveItem(1);
+                map.getPlayer().setActiveItem(1);
             }
         });
         
@@ -95,9 +95,10 @@ public class Component extends JComponent {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-            	if(game.getPlayer().getActiveItem() instanceof Bow && !game.getPlayer().shotArrow())
+            	map.getPlayer().setDidPressSpace(true);
+            	if(map.getPlayer().getActiveItem() instanceof Bow && !map.getPlayer().shotArrow())
             	{
-            		game.getPlayer().setShotArrow(true);
+            		map.getPlayer().setShotArrow(true);
             	}
             }
             	
@@ -107,7 +108,7 @@ public class Component extends JComponent {
         getActionMap().put("ESCAPE", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.quit();
+               
             }
         });
         
@@ -115,42 +116,42 @@ public class Component extends JComponent {
         getActionMap().put("UP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.UP, true);
+                map.move(Direction.UP, true);
             }
         });
         getInputMap().put(KeyStroke.getKeyStroke("released UP"), "no UP");
         getActionMap().put("no UP", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.UP, false);
+                map.move(Direction.UP, false);
             }
         });
         getInputMap().put(KeyStroke.getKeyStroke("LEFT"), "LEFT");
         getActionMap().put("LEFT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.LEFT, true);
+                map.move(Direction.LEFT, true);
             }
         });
         getInputMap().put(KeyStroke.getKeyStroke("released LEFT"), "no LEFT");
         getActionMap().put("no LEFT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.LEFT, false);
+                map.move(Direction.LEFT, false);
             }
         });
         getInputMap().put(KeyStroke.getKeyStroke("RIGHT"), "RIGHT");
         getActionMap().put("RIGHT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.RIGHT, true);
+                map.move(Direction.RIGHT, true);
             }
         });
         getInputMap().put(KeyStroke.getKeyStroke("released RIGHT"), "no RIGHT");
         getActionMap().put("no RIGHT", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                game.move(Direction.RIGHT, false);
+                map.move(Direction.RIGHT, false);
             }
         });
 	}

@@ -10,8 +10,9 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+public abstract class Map {
 
-public class Game extends JFrame {
+
 	/**
 	 * A List to hold all the nodes that will be placed out on the screen
 	 */
@@ -23,8 +24,7 @@ public class Game extends JFrame {
 	public List<Node> getNodes() {
 		return nodes;
 	}
-
-	private double lastUpdate;
+	
 	static public Physics physics;
 
 	public final static int inventorySpace = 100;
@@ -40,10 +40,9 @@ public class Game extends JFrame {
 	public Player getPlayer() {
 		return player;
 	}
-	
-	public Game()
+
+	public Map()
 	{
-		super("Fysikspel");
 		this.nodes = new ArrayList<Node>();
 		this.physics = new Physics(1000);
 		this.movingUp = false;
@@ -59,35 +58,7 @@ public class Game extends JFrame {
 		this.nodes.add(n);
 
 		this.player = n;
-		
-	}
 
-	public void run(){
-		Component component = new Component(this);
-		this.setUndecorated(true);
-		lastUpdate = System.currentTimeMillis();
-
-		this.setLayout(new BorderLayout());
-		this.add(component, BorderLayout.CENTER);
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.pack();
-
-		AbstractAction doOneStep = new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				double currentTime = System.currentTimeMillis();
-				update((currentTime - lastUpdate)*0.001);
-				lastUpdate = currentTime;
-				component.repaint();
-			}
-		};
-		int fps = 1000/60; // 60 fps 
-		Timer timer = new Timer(fps, doOneStep);
-		timer.setCoalesce(true);
-		timer.start();
-
-
-		super.setVisible(true);
 	}
 
 	public void update(double updateTime) {
@@ -100,33 +71,33 @@ public class Game extends JFrame {
 			Arrow a = new Arrow(player.getActiveItem());
 			this.nodes.add(a);
 			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -150 + player.getVelocity().getY()));
-			
+
 			player.setHasShotArrow(true);
-			
-			
+
+
 			AbstractAction doOneStep = new AbstractAction() {
-    			@Override
-    			public void actionPerformed(ActionEvent e) {
-    				player.setShotArrow(false);
-    				player.setHasShotArrow(false);
-    			}
-    		};
-    		
-    		javax.swing.Timer timer = new javax.swing.Timer(500, doOneStep);
-    		timer.setRepeats(false);
-    		timer.start();
-    	}
-			
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					player.setShotArrow(false);
+					player.setHasShotArrow(false);
+				}
+			};
+
+			javax.swing.Timer timer = new javax.swing.Timer(500, doOneStep);
+			timer.setRepeats(false);
+			timer.start();
+		}
+
 		// if the arrow left and arrow right are presses at the same time this wont go through otherwise it will*/
 		if ((movingLeft || movingRight) && (!movingLeft || !movingRight)) {
 			int vx = (movingLeft ? -500 : 500); 
 			int vy = (int) player.getVelocity().getY();
 			if(!player.isInAir())
 				vy = 0;
-			
+
 			player.whichDirectionImage(movingLeft);
 			player.setVelocity(new Velocity(vx, vy));
-			
+
 			player.setDidObjectIntersectFloor(false);
 		}
 		if (movingUp) {
@@ -151,10 +122,11 @@ public class Game extends JFrame {
 			{
 				if(node1 == node2)
 					continue;
-				
+
 				this.checkCollide(pr, node2, updateTime);
 			}
 		}
+		player.setDidPressSpace(false);
 	}
 	public void checkCollide(PhysicRectangle pr, Node node2, double updateTime)
 	{
@@ -169,7 +141,7 @@ public class Game extends JFrame {
 		if(!pr.isTakeCareOfCollision())
 			pr.collisionCheck((Rectangle)node2, updateTime); // collision with obstacle
 	}
-	
+
 	/**
 	 * Adds a node to the node list
 	 * @param Node, n
@@ -192,10 +164,5 @@ public class Game extends JFrame {
 			break;
 		}
 	}
-	
-	public void quit()
-	{
-		this.dispose();
-		System.exit(0);
-	}
+
 }

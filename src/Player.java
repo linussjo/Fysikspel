@@ -9,7 +9,22 @@ import java.util.List;
 import javax.imageio.ImageIO;
 
 public class Player extends PhysicRectangle {
+	
+	private boolean didPressSpace;
 
+	/**
+	 * @return the didPressSpace
+	 */
+	public boolean didPressSpace() {
+		return didPressSpace;
+	}
+
+	/**
+	 * @param didPressSpace the didPressSpace to set
+	 */
+	public void setDidPressSpace(boolean didPressSpace) {
+		this.didPressSpace = didPressSpace;
+	}
 
 	/**
 	 * @return the hasShotArrow
