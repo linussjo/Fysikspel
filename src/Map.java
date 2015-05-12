@@ -2,9 +2,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
 import javax.swing.Timer;
@@ -69,6 +74,13 @@ public abstract class Map {
 		 * this are the types im putting in to "new Rectangle(Position x, Position y, Width, Height, Mass)" in the code
 		 */
 		Player n = new Player(p);
+		try {
+		     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+                  "data", "8-bit_Andreas.png").toUri()));
+		     n.setImage(img);
+      } catch (IOException e) {
+          System.out.println("Image not found");
+      }
 		//n.applyVelocity(new Velocity(150, 150));
 		this.nodes.add(n);
 
@@ -110,7 +122,7 @@ public abstract class Map {
 			if(!player.isInAir())
 				vy = 0;
 
-			player.whichDirectionImage(movingLeft);
+			player.whichDirectionImage(movingLeft, movingRight);
 			player.setVelocity(new Velocity(vx, vy));
 
 		}

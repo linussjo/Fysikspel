@@ -111,6 +111,7 @@ public class Player extends PhysicRectangle {
 	}
 
 	private boolean movingLeft = false;
+	private boolean movingRight = false;
 
 	/**
 	 * @param inAir
@@ -126,8 +127,9 @@ public class Player extends PhysicRectangle {
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
+			this.setImage(img);
 		}
-		else if(inAir && !movingLeft)
+		else if(inAir && movingRight)
 		{
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
@@ -135,19 +137,16 @@ public class Player extends PhysicRectangle {
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
-		}else{
-			try {
-			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
-	                    "data", "8-bit_Andreas.png").toUri()));
-	        } catch (IOException e) {
-	            System.out.println("Image not found");
-	        }
+			this.setImage(img);
 		}
-		this.setImage(img);
+		else{
+			whichDirectionImage(movingLeft, movingRight);
+		}
 	}
-	public void whichDirectionImage(boolean movingLeft){
+	public void whichDirectionImage(boolean movingLeft, boolean movingRight){
 		BufferedImage img = null;
 		this.movingLeft = movingLeft;
+		this.movingRight = movingRight;
 		if(movingLeft){
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
@@ -155,16 +154,19 @@ public class Player extends PhysicRectangle {
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
-			
-		}else{
+			this.setImage(img);
+		}else if(movingRight){
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_Andreas.png").toUri()));
 	        } catch (IOException e) {
 	            System.out.println("Image not found");
 	        }
+			this.setImage(img);
+		}else{
+			img = this.getImage();
+			this.setImage(img);
 		}
-		this.setImage(img);
 		if(this.itemContainer.size() > 0)
 			this.activeItem.changeDirection(movingLeft);
 	}
