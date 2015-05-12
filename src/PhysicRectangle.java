@@ -87,8 +87,6 @@ public abstract class PhysicRectangle extends Rectangle {
 	public PhysicRectangle(int x, int y, int width, int height, float mass) {
 		super(x, y, width, height, mass);
 		
-		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
-		this.addCollideNumbers(Collision.BOINKOBSTACLE);
 	}
 	
 	public void setVelocity(Velocity v)
@@ -108,7 +106,7 @@ public abstract class PhysicRectangle extends Rectangle {
 		{
 			if(pr.getCollideNumbers().contains(r.getColliderNumber()))
 			{
-				if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE || r.getColliderNumber() == Node.Collision.BOINKOBSTACLE || r.getColliderNumber() == Node.Collision.MOVABLEBOX )
+				if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE || r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
 				{      
 					int y1 = pr.getOldPosition().y + pr.getHeight();
 					int y2 = pr.getOldPosition().y;
@@ -228,6 +226,26 @@ public abstract class PhysicRectangle extends Rectangle {
 					return true;
 
 				}
+				else if(this.ifHasPhysics() && r.ifHasPhysics())
+				{
+					int x1 = this.getPosition().x + this.getWidth();
+					int x2 = this.getPosition().x;
+					
+					if((x1 >= r.getPosition().x || x2 <= r.getPosition().x + r.getWidth()))
+					{
+						if(this.getVelocity().getX() > 0)
+						{
+							this.setPosition(new Point(r.getPosition().x - this.getWidth(), r.getPosition().y));
+						}
+						else if(this.getVelocity().getX() < 0)
+						{
+							this.setPosition(new Point(r.getPosition().x + r.getWidth(), r.getPosition().y));
+						}
+					}
+					
+					Map.physics.calculateElasticCollision(this, (PhysicRectangle)r);
+				}
+				return true;
 			}
 		}
 		this.didObjectIntersectWall = false;

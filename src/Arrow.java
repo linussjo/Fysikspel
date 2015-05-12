@@ -18,6 +18,7 @@ public class Arrow extends PhysicRectangle {
 		this.addCollideNumbers(Collision.SOLIDOBSTACLE);
 		this.addCollideNumbers(Collision.BOINKOBSTACLE);
 		this.addCollideNumbers(Collision.BUTTON);
+		this.addCollideNumbers(Collision.MOVABLEBOX);
 		try {
 		     this.setImage(ImageIO.read(new File(FileSystems.getDefault().getPath(
 	               "data", "Arrow_Up_Left.png").toUri())));

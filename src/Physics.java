@@ -46,7 +46,7 @@ public class Physics {
 	{
 		float vx = (float)(n.getVelocity().getX() + n.getAcceleration().getX()*time);
 		
-		if(vx != 0 && !n.isDidObjectIntersectFloor())
+		if(vx != 0)
 		{
 			if(n.getVelocity().getX() > 0)
 			{
@@ -81,14 +81,8 @@ public class Physics {
 		float vfy1 =   (float) ((m1 -m2)*vi1/(m1 + m2) + 2*m2*vi2/(m1 + m2));
 		float vfy2 =   (float) ((2*m1*vi1/(m1 + m2)) + (m2 -m1)*vi2/(m1 + m2));
 		
-		if(!(r1 instanceof Player))
-		{
-			r1.setVelocity(new Velocity(vfx1, r1.getVelocity().getY() + 1));
-		}
-		if(!(r2 instanceof Player))
-		{
-			r2.setVelocity(new Velocity(vfx2, r2.getVelocity().getY() + 1));
-		}
+		r1.setVelocity(new Velocity(vfx1, r1.getVelocity().getY()));
+		r2.setVelocity(new Velocity(vfx2, r2.getVelocity().getY()));
 	}
 	
 

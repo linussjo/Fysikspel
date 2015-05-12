@@ -128,16 +128,19 @@ public abstract class Map {
 	}
 	public void checkCollide(PhysicRectangle pr, Node node2, double updateTime)
 	{
-		if(pr.isCollidable() && node2.isCollidable())
+		if(pr.getCollideNumbers().contains(node2.getColliderNumber()))
 		{
-			if (pr.intersects(node2))
+			if(pr.isCollidable() && node2.isCollidable())
 			{
-				pr.collide((Rectangle)node2, updateTime);
-				((Rectangle)node2).collide(pr, updateTime);
+				if (pr.intersects(node2))
+				{
+					pr.collide((Rectangle)node2, updateTime);
+					((Rectangle)node2).collide(pr, updateTime);
+				}
 			}
+			if(!pr.isTakeCareOfCollision())
+				pr.collisionCheck((Rectangle)node2, updateTime); // collision with obstacle
 		}
-		if(!pr.isTakeCareOfCollision())
-			pr.collisionCheck((Rectangle)node2, updateTime); // collision with obstacle
 	}
 
 	/**

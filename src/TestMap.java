@@ -7,9 +7,9 @@ public class TestMap extends Map {
 	public TestMap()
 	{
 		super();
-		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-310, 50, 300, 0);
+		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-310, 50, 300, 0.8f);
 		Obstacle ob2 = new Obstacle(Component.WIDTH-110, Component.HEIGHT-20-inventorySpace-300, 90, 50, 1);
-		ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		ob1.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
 		this.addNode(ob2);
@@ -20,7 +20,8 @@ public class TestMap extends Map {
 		
 		this.addNode(floor);
 		
-	
+		MoveableBox mb = new MoveableBox(300, 200, 50, 50, 50);
+		this.addNode(mb);
 
 
 		Obstacle obstacle = new Obstacle(600, 500-inventorySpace, 300, 55, 1);

@@ -6,6 +6,9 @@ public class Door extends Obstacle implements Notifiable{
 	public Door(int x, int y, int width, int height, float mass) {
 		super(x, y, width, height, mass);
 		this.setHasPhysics(true);
+		this.addCollideNumbers(Node.Collision.BOINKOBSTACLE);
+		this.addCollideNumbers(Node.Collision.SOLIDOBSTACLE);
+		this.addCollideNumbers(Node.Collision.PLAYER);
 	}
 
 	@Override
@@ -19,14 +22,16 @@ public class Door extends Obstacle implements Notifiable{
 			{
 				if(this.getVelocity().getY() > 0)
 				{
-					this.setVelocity(new Velocity(this.getVelocity().getX(),0));
+					//this.setVelocity(new Velocity(this.getVelocity().getX(),0));
 					this.setPosition(new Point(this.getPosition().x, r.getPosition().y - this.getHeight()));
 				}
 				else 
 				{
-					this.setVelocity(new Velocity(this.getVelocity().getX(),0));
+					//this.setVelocity(new Velocity(this.getVelocity().getX(),0));
 					this.setPosition(new Point(this.getPosition().x, r.getPosition().y + r.getHeight()));
 				}
+				
+				Map.physics.calculateElasticCollision(this, ((PhysicRectangle)r));
 			}
 		}
 		
