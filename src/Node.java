@@ -10,8 +10,22 @@ public abstract class Node {
 	
 	private boolean shouldDraw = true;
 	
+	private Reason reason;
+	
 	private List<Notifiable> listernersList = new ArrayList<Notifiable>();
 	
+	/**
+	 * @return the reason
+	 */
+	public Reason getReason() {
+		return reason;
+	}
+	/**
+	 * @param reason the reason to set
+	 */
+	public void setReason(Reason reason) {
+		this.reason = reason;
+	}
 	/**
 	 * @return the shouldDraw
 	 */
@@ -266,7 +280,7 @@ public abstract class Node {
 	{
 		for(Notifiable n : this.listernersList)
 		{
-			n.notify(Reason.BUTTON);
+			n.notify(this.getReason());
 		}
 	}
 
