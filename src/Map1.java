@@ -3,12 +3,14 @@ import java.awt.Point;
 
 
 
-public class Map1 extends Map {
+public class Map1 extends Map implements Notifiable {
 	
 	public Map1()
 	{
 		super(new Point(600, 300));
-
+		
+		Map.physics = new Physics(2000);
+		
 		Obstacle floor = new Obstacle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20, 1);
 		floor.setColor(Color.BLACK);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
@@ -30,16 +32,12 @@ public class Map1 extends Map {
 		roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(roof);
 		
-
-		Brownie kladdkaka = new Brownie("Andreas kladdkaka", 400, Component.HEIGHT - 400-inventorySpace, 30, 30, 1);
-		this.addNode(kladdkaka);
-		//kladdkaka.applyVelocity(new Velocity(0, -250));
-		
 		Door hatch = new Door(500, 400, 200, 10, 0);
 		this.addNode(hatch);
 		hatch.setHasPhysics(false);
 		
 		Obstacle boxRoof = new Obstacle(500, 200, 200, 10, 1);
+		boxRoof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(boxRoof);
 		
 		Obstacle boxRWall = new Obstacle(500, 200, 10, 200, 0.8f);
@@ -51,15 +49,52 @@ public class Map1 extends Map {
 		
 		
 		
-		Button hatchButton = new Button(500, 300, 20, 20);
+		Button hatchButton = new Button(510, 300, 10, 20);
 		this.addNode(hatchButton);
 		hatchButton.setReason(Reason.MAP1HATCH);
 		hatchButton.registerListerner(hatch);
+		hatchButton.setColor(Color.red);
+		
+		Obstacle ob1 = new Obstacle(750, 500, 100, 20, 0);
+		ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob1);
+		
+		Obstacle ob2 = new Obstacle(850, 350, 100, 20, 0);
+		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob2);
 		
 
-//		Bow bow = new Bow("Andreas bÃ¥ge", 400, Component.HEIGHT - 500-inventorySpace, 30, 30);
-//		this.addNode(bow);
-//		bow.applyVelocity(new Velocity(250, 250));
+		Bow bow = new Bow("Andreas båge", 600, 169, 30, 30);
+		this.addNode(bow);
+		
+		Door ob3 = new Door(100, 450, 50, 150, 0);
+		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob3);
+		
+		Obstacle ob4 = new Obstacle(20, 450, 80, 50, 0);
+		ob4.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob4);
+		
+		Button arrowButton = new Button(20, 250, 10, 20);
+		arrowButton.setColor(Color.red);
+		arrowButton.setReason(Reason.MAP1ARROW);
+		arrowButton.registerListerner(ob3);
+		this.addNode(arrowButton);
+		
+		Button doneButton = new Button(0, 520, 25, 80);
+		doneButton.setColor(Color.white);
+		doneButton.setReason(Reason.MAP1DONE);
+		doneButton.registerListerner(this);
+		this.addNode(doneButton);
+		
+		
+	}
+
+	@Override
+	public void notify(Reason r) {
+		if(r == Reason.MAP1DONE)
+			this.setDone(true);
+		
 	}
 
 }

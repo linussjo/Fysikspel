@@ -39,13 +39,13 @@ public class Door extends Obstacle implements Notifiable{
 	
 	@Override
 	public void notify(Reason r) {
-		if(r == Reason.BUTTON)
+		if(r == Reason.MAP1ARROW)
 		{
 			//this.setPosition(new Point(this.getPosition().x,  this.getPosition().y + this.getHeight()));
 			this.setHasPhysics(true);
 			this.setInAir(true);
 			this.setVelocity(new Velocity(0, -500));
-			this.setAcceleration(new Acceleration(0,-800));
+			this.setAcceleration(new Acceleration(0,-1500));
 		}
 		else if(r == Reason.MAP1HATCH){
 			this.setHasPhysics(true);

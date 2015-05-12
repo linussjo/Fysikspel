@@ -11,12 +11,27 @@ import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
 public abstract class Map {
-
+	
+	private boolean isDone;
 
 	/**
 	 * A List to hold all the nodes that will be placed out on the screen
 	 */
 	private List<Node> nodes;
+	/**
+	 * @return the isDone
+	 */
+	public boolean isDone() {
+		return isDone;
+	}
+
+	/**
+	 * @param isDone the isDone to set
+	 */
+	protected void setDone(boolean isDone) {
+		this.isDone = isDone;
+	}
+
 	/**
 	 * Gets the node list
 	 * @return Set, nodes
