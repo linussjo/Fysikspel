@@ -41,7 +41,7 @@ public abstract class Map {
 		return player;
 	}
 
-	public Map()
+	public Map(Point p)
 	{
 		this.nodes = new ArrayList<Node>();
 		this.physics = new Physics(1000);
@@ -53,7 +53,7 @@ public abstract class Map {
 		 * creating a node for as an example.
 		 * this are the types im putting in to "new Rectangle(Position x, Position y, Width, Height, Mass)" in the code
 		 */
-		Player n = new Player();
+		Player n = new Player(p);
 		//n.applyVelocity(new Velocity(150, 150));
 		this.nodes.add(n);
 

@@ -40,8 +40,8 @@ public class Player extends PhysicRectangle {
 		this.hasShotArrow = hasShotArrow;
 	}
 
-	Player() {
-		super(100, 500, 50, 50, 50);
+	Player(Point p) {
+		super(p.x, p.y, 50, 50, 50);
 		this.setColliderNumber(Collision.PLAYER);
 		this.addCollideNumbers(Collision.MOVABLEBOX);
 		this.addCollideNumbers(Collision.SOLIDOBSTACLE);

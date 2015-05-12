@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Point;
 
 
 
@@ -6,7 +7,7 @@ public class TestMap extends Map {
 	
 	public TestMap()
 	{
-		super();
+		super(new Point(500,100));
 		Door ob1 = new Door(Component.WIDTH-160, Component.HEIGHT-20-inventorySpace-310, 50, 300, 0.8f);
 		Obstacle ob2 = new Obstacle(Component.WIDTH-110, Component.HEIGHT-20-inventorySpace-300, 90, 50, 1);
 		ob1.setColliderNumber(Node.Collision.BOINKOBSTACLE);

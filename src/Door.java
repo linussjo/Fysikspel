@@ -47,6 +47,9 @@ public class Door extends Obstacle implements Notifiable{
 			this.setVelocity(new Velocity(0, -500));
 			this.setAcceleration(new Acceleration(0,-800));
 		}
+		else if(r == Reason.MAP1HATCH){
+			this.setHasPhysics(true);
+		}
 		
 	}
 

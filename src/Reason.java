@@ -1,4 +1,5 @@
 
 public enum Reason {
-	BUTTON;
+	BUTTON,
+	MAP1HATCH;
 }
