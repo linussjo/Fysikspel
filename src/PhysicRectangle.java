@@ -133,7 +133,7 @@ public abstract class PhysicRectangle extends Rectangle {
 								if(r instanceof Obstacle)
 									vy *= ((Obstacle)r).getBoinkFactor(); // dont want all the of speed to be left if it is an obstacle
 								//vy = (float) ((0.78)*pr.getVelocity().getY()*(-1));
-								vx = pr.getVelocity().getX();
+									vx = pr.getVelocity().getX();
 								if(vy >= -100)
 								{
 									vy = 0;
