@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 
 public class Door extends Obstacle implements Notifiable{
 
@@ -8,7 +10,25 @@ public class Door extends Obstacle implements Notifiable{
 
 	@Override
 	public void collide(Rectangle r, double updateTime) {
-		// TODO Auto-generated method stub
+		if(r instanceof PhysicRectangle && !(r instanceof Obstacle) && this.ifHasPhysics() && this.isInAir())
+		{
+			int y1 = this.getOldPosition().y + this.getHeight();
+			int y2 = this.getOldPosition().y;
+			
+			if((this.isInAir() && y1 <= r.getPosition().y || y2 >= r.getPosition().y + r.getHeight()))
+			{
+				if(this.getVelocity().getY() > 0)
+				{
+					this.setVelocity(new Velocity(this.getVelocity().getX(),0));
+					this.setPosition(new Point(this.getPosition().x, r.getPosition().y - this.getHeight()));
+				}
+				else 
+				{
+					this.setVelocity(new Velocity(this.getVelocity().getX(),0));
+					this.setPosition(new Point(this.getPosition().x, r.getPosition().y + r.getHeight()));
+				}
+			}
+		}
 		
 	}
 	

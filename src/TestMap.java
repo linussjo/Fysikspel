@@ -13,14 +13,14 @@ public class TestMap extends Map {
 		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
 		this.addNode(ob2);
-
+		this.addNode(ob1);
 		Obstacle floor = new Obstacle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20, 1);
 		floor.setColor(Color.YELLOW);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
 		this.addNode(floor);
 		
-		this.addNode(ob1);
+	
 
 
 		Obstacle obstacle = new Obstacle(600, 500-inventorySpace, 300, 55, 1);

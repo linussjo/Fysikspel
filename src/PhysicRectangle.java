@@ -115,13 +115,14 @@ public abstract class PhysicRectangle extends Rectangle {
 					int y3 = pr.getPosition().y + pr.getHeight();
 					int x = pr.getOldPosition().x;
 					
-					if(pr.isInAir() && y1 <= r.getPosition().y || y2 >= r.getPosition().y + r.getHeight())
+					if((pr.isInAir() && y1 <= r.getPosition().y || y2 >= r.getPosition().y + r.getHeight()) || this.didObjectIntersectWall && y1 > r.getPosition().getY())
 					{
 						if(pr.getVelocity().getY()>=0)
 						{
 							
 							pr.setInAir(false);
 							pr.setDidObjectIntersectFloor(true);
+							this.didObjectIntersectWall = false;
 							
 
 							//med boink, annars s�tt velY till 0
@@ -199,7 +200,7 @@ public abstract class PhysicRectangle extends Rectangle {
 								vx = pr.getVelocity().getX();
 
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
-							pr.setPosition(new Point(r.getPosition().x - pr.getWidth(), pr.getPosition().y));
+							pr.setPosition(new Point(r.getPosition().x - pr.getWidth() - 1, pr.getPosition().y));
 						}
 						else  if(pr.getVelocity().getX()<0)
 						{
@@ -220,7 +221,7 @@ public abstract class PhysicRectangle extends Rectangle {
 								vx = pr.getVelocity().getX();
 
 							pr.setVelocity(new Velocity(vx, pr.getVelocity().getY()));
-							pr.setPosition(new Point(r.getPosition().x + r.getWidth(), pr.getPosition().y));
+							pr.setPosition(new Point(r.getPosition().x + r.getWidth() + 1, pr.getPosition().y));
 						}
 						this.didObjectIntersectWall = true;
 					}
@@ -229,7 +230,7 @@ public abstract class PhysicRectangle extends Rectangle {
 				}
 			}
 		}
-		
+		this.didObjectIntersectWall = false;
 		if(!pr.isDidObjectIntersectFloor())
 		{
 			pr.setInAir(true);

@@ -28,7 +28,7 @@ public class Obstacle extends PhysicRectangle{
 
 	@Override
 	public void collide(Rectangle r, double updateTime) {
-		
+
 	}
 
 }
