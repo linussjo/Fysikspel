@@ -113,6 +113,23 @@ public class Player extends PhysicRectangle {
 	private boolean movingLeft = false;
 	private boolean movingRight = false;
 
+	private boolean lookingLeft = false;
+	private boolean lookingRight = false;
+	
+	/**
+	 * @return the lookingLeft
+	 */
+	public boolean isLookingLeft() {
+		return lookingLeft;
+	}
+
+	/**
+	 * @return the lookingRight
+	 */
+	public boolean isLookingRight() {
+		return lookingRight;
+	}
+
 	/**
 	 * @param inAir
 	 *            the inAir to set
@@ -128,6 +145,8 @@ public class Player extends PhysicRectangle {
 	            System.out.println("Image not found");
 	        }
 			this.setImage(img);
+			this.lookingLeft = true;
+			this.lookingRight = false;
 		}
 		else if(inAir && movingRight)
 		{
@@ -138,6 +157,8 @@ public class Player extends PhysicRectangle {
 	            System.out.println("Image not found");
 	        }
 			this.setImage(img);
+			this.lookingRight = true;
+			this.lookingLeft = false;
 		}
 		else{
 			whichDirectionImage(movingLeft, movingRight);
@@ -155,6 +176,8 @@ public class Player extends PhysicRectangle {
 	            System.out.println("Image not found");
 	        }
 			this.setImage(img);
+			this.lookingLeft = true;
+			this.lookingRight = false;
 		}else if(movingRight){
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
@@ -163,6 +186,8 @@ public class Player extends PhysicRectangle {
 	            System.out.println("Image not found");
 	        }
 			this.setImage(img);
+			this.lookingRight = true;
+			this.lookingLeft = false;
 		}else{
 			img = this.getImage();
 			this.setImage(img);

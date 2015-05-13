@@ -93,7 +93,7 @@ public abstract class Map {
 
 		if(player.shotArrow() && !player.hasShotArrow())
 		{
-			int vx = (movingLeft ? -550 : 550);
+			int vx = (player.isLookingLeft() ? -550 : 550);
 
 			Arrow a = new Arrow(player.getActiveItem());
 			this.nodes.add(a);
