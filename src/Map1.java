@@ -16,6 +16,10 @@ public class Map1 extends Map implements Notifiable {
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
 		this.addNode(floor);
+		
+		Obstacle ob4 = new Obstacle(20, 450, 80, 50, 0);
+		ob4.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob4);
 
 		Obstacle leftWall = new Obstacle(0, 0, 20, Component.HEIGHT-inventorySpace, 0.7f);
 		leftWall.setColor(Color.BLACK);
@@ -32,19 +36,19 @@ public class Map1 extends Map implements Notifiable {
 		roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(roof);
 		
-		Door hatch = new Door(500, 400, 200, 10, 0);
+		Door hatch = new Door(490, 400, 230, 20, 0);
 		this.addNode(hatch);
 		hatch.setHasPhysics(false);
 		
-		Obstacle boxRoof = new Obstacle(500, 200, 200, 10, 1);
+		Obstacle boxRoof = new Obstacle(490, 180, 230, 20, 1);
 		boxRoof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(boxRoof);
 		
-		Obstacle boxRWall = new Obstacle(500, 200, 10, 200, 0.8f);
+		Obstacle boxRWall = new Obstacle(490, 200, 20, 200, 0.8f);
 		//boxRWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(boxRWall);
 		
-		Obstacle boxLWall = new Obstacle(700, 200, 10, 200, 0.8f);
+		Obstacle boxLWall = new Obstacle(700, 200, 20, 200, 0.8f);
 		this.addNode(boxLWall);
 		
 		
@@ -64,16 +68,13 @@ public class Map1 extends Map implements Notifiable {
 		this.addNode(ob2);
 		
 
-		Bow bow = new Bow("Andreas båge", 600, 169, 30, 30);
+		Bow bow = new Bow("Andreas bï¿½ge", 600, 169, 30, 30);
 		this.addNode(bow);
 		
 		Door ob3 = new Door(100, 450, 50, 150, 0);
 		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(ob3);
 		
-		Obstacle ob4 = new Obstacle(20, 450, 80, 50, 0);
-		ob4.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.addNode(ob4);
 		
 		Button arrowButton = new Button(20, 250, 10, 20);
 		arrowButton.setColor(Color.red);
@@ -92,9 +93,7 @@ public class Map1 extends Map implements Notifiable {
 
 	@Override
 	public void notify(Reason r) {
-		if(r == Reason.MAP1DONE)
-			this.setDone(true);
-		
+		this.setDone(true);
 	}
 
 }

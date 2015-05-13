@@ -27,7 +27,6 @@ public class Game extends JFrame {
 	public void quit()
 	{
 		this.dispose();
-		System.exit(0);
 	}
 	
 	public void loadMap(Map m)

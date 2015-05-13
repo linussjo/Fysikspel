@@ -34,6 +34,10 @@ public class Door extends Obstacle implements Notifiable{
 				Map.physics.calculateElasticCollision(this, ((PhysicRectangle)r));
 			}
 		}
+		else if(r instanceof Obstacle)
+		{
+			this.setColliderNumber(Collision.SOLIDOBSTACLE);
+		}
 		
 	}
 	
