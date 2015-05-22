@@ -1,6 +1,11 @@
 import java.io.*;
 import java.nio.file.FileSystems;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+
 import sun.audio.*;
 
 /**
@@ -10,22 +15,22 @@ import sun.audio.*;
  */
 public class Sound
 {
-	private AudioStream as;
+	private Clip clip;
 	private boolean loop;
+	AudioInputStream is;
+	
 	public Sound(String file, boolean loop)
 	{
 		this.loop = loop;
-
-		InputStream in = null;
-		try {
-			in = new FileInputStream(FileSystems.getDefault().getPath("data", file).toFile());
-
-
-			// create an audiostream from the inputstream
-			as = new AudioStream(in);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		try
+		{
+			clip = AudioSystem.getClip();
+			is = AudioSystem.getAudioInputStream(FileSystems.getDefault().getPath("data", file).toFile());
+			
+		}
+		catch(Exception e)
+		{
+			System.out.println(e.getMessage());
 		}
 	}
 	
@@ -35,15 +40,31 @@ public class Sound
 			// The wrapper thread is unnecessary, unless it blocks on the
 			// Clip finishing; see comments.
 			public void run() {
+				
 				if(loop)
 				{
+					try {
+						clip.open(is);
+					} catch (LineUnavailableException | IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					while(true)
 					{
-						AudioPlayer.player.start(as);
+						if(!clip.isActive())
+							clip.start();
 					}
 				}
 				else 
-					AudioPlayer.player.start(as);
+				{
+					try {
+						clip.open(is);
+					} catch (LineUnavailableException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					clip.start();
+				}
 			}
 			
 		}).start();
@@ -51,6 +72,6 @@ public class Sound
 
 	public void stop()
 	{
-		AudioPlayer.player.stop(as);
+		clip.stop();
 	}
 }

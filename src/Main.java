@@ -6,7 +6,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Sound s = new Sound("Star_Wars.wav", true);
+		Sound s = new Sound("Star_Wars.wav", false);
 		s.play();
 		Map tm = new TestMap();
 		Map mone = new Map1();

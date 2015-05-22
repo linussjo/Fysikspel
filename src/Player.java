@@ -138,6 +138,7 @@ public class Player extends PhysicRectangle {
 		super.setInAir(inAir);
 		BufferedImage img = null;
 		if(inAir && movingLeft){
+			Sound s = new Sound("", false);
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_JumpAndreasLeft.png").toUri()));
