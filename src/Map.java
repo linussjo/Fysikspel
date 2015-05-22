@@ -93,11 +93,11 @@ public abstract class Map {
 
 		if(player.shotArrow() && !player.hasShotArrow())
 		{
-			int vx = (player.isLookingLeft() ? -550 : 550);
+			int vx = (player.isLookingLeft() ? -650 : 650);
 
 			Arrow a = new Arrow(player.getActiveItem());
 			this.nodes.add(a);
-			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -150 + player.getVelocity().getY()));
+			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -450 + player.getVelocity().getY()));
 
 			player.setHasShotArrow(true);
 

@@ -10,7 +10,9 @@ public class Main {
 		s.play();
 		Map tm = new TestMap();
 		Map mone = new Map1();
+		Map mtwo = new Map2();
 		List<Map> maps = new ArrayList<Map>();
+		maps.add(mtwo);
 		maps.add(mone);
 		maps.add(tm);
 		
