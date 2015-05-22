@@ -23,14 +23,23 @@ public class Component extends JComponent {
 	public static final int HEIGHT = 720;
 	public static final int WIDTH = 1280;
 	private Font font;
+	private BufferedImage background = null;
 
 	public Component(Map map) {
         this.map = map;
         this.font = new Font("Helvetica", Font.PLAIN, 12);
         setInput();
+        
+        try {
+		     background  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+                   "data", "background.png").toUri()));
+		     System.out.println("read background");
+       } catch (IOException e) {
+           System.out.println("Image not found");
+       }
      }
-	
-    @Override
+
+	@Override
     public Dimension getPreferredSize() {
         return new Dimension(WIDTH, HEIGHT);
     }
@@ -38,8 +47,11 @@ public class Component extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
+        
         g2.setColor(Color.WHITE);
         g2.fillRect(0, 0, WIDTH, HEIGHT);
+        
+        g2.drawImage(background, 0, 0, WIDTH, HEIGHT, null);
         /**
          * Draw all the Node from game objects list Nodes
          */
