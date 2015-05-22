@@ -63,23 +63,27 @@ public class Map1 extends Map implements Notifiable {
 		ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(ob1);
 		
-		Obstacle ob2 = new Obstacle(850, 350, 100, 20, 0);
+		Obstacle ob2 = new Obstacle(950, 350, 100, 20, 0);
 		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(ob2);
+		
+		Obstacle ob3 = new Obstacle(750, 300, 100, 20, 0);
+		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob3);
 		
 
 		Bow bow = new Bow("Andreas båge", 600, 120, 30, 30);
 		this.addNode(bow);
 		
-		Door ob3 = new Door(100, 450, 50, 150, 0);
-		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.addNode(ob3);
+		Door door = new Door(100, 450, 50, 150, 0);
+		door.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(door);
 		
 		
-		Button arrowButton = new Button(20, 250, 10, 20);
+		Button arrowButton = new Button(20, 200, 10, 20);
 		arrowButton.setColor(Color.red);
 		arrowButton.setReason(Reason.MAP1ARROW);
-		arrowButton.registerListerner(ob3);
+		arrowButton.registerListerner(door);
 		this.addNode(arrowButton);
 		
 		Button doneButton = new Button(0, 520, 25, 80);
