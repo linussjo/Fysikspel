@@ -1,7 +1,11 @@
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.FileSystems;
 
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
@@ -62,7 +66,8 @@ public class Sound {
     Sound(String filename) {
         this.loop = false;
         try {
-            InputStream raw = Object.class.getResourceAsStream(filename);
+        	File file = FileSystems.getDefault().getPath("data", filename).toFile();
+            AudioInputStream raw = AudioSystem.getAudioInputStream(file);
             stream = new BufferedInputStream(raw);
 
             // ByteArrayOutputStream out = new ByteArrayOutputStream();
