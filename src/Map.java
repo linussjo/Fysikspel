@@ -63,8 +63,6 @@ public abstract class Map {
 
 	public Map(Point p)
 	{
-		Sound s = new Sound("Star_Wars.wav", true);
-		s.play();
 		this.nodes = new ArrayList<Node>();
 		this.physics = new Physics(1000);
 		this.movingUp = false;
