@@ -1,5 +1,11 @@
 import java.awt.Color;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+
+import javax.imageio.ImageIO;
 
 
 public class Map2 extends Map implements Notifiable {
@@ -36,7 +42,7 @@ public class Map2 extends Map implements Notifiable {
 	ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 	this.addNode(ob3);
 	
-	Obstacle bounce = new Obstacle(590, 400, 80, 20, 2);
+	Obstacle bounce = new Obstacle(620, 400, 80, 20, 1);
 	bounce.setColor(Color.RED);
 	bounce.setColliderNumber(Node.Collision.BOINKOBSTACLE);
 	this.addNode(bounce);
@@ -50,6 +56,18 @@ public class Map2 extends Map implements Notifiable {
 	roof.setColor(Color.WHITE);
 	roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 	this.addNode(roof);
+	
+	Obstacle backPack = new Obstacle(50,100,100,100,1);
+	try {
+	     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+               "data", "Backpack.png").toUri()));
+	     backPack.setImage(img);
+	} catch (IOException e) {
+       System.out.println("Image not found");
+   }
+	backPack.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+	this.addNode(backPack);
+	
 	
 	
 }

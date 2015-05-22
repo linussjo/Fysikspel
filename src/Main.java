@@ -12,8 +12,8 @@ public class Main {
 		Map mone = new Map1();
 		Map mtwo = new Map2();
 		List<Map> maps = new ArrayList<Map>();
-		maps.add(mtwo);
 		maps.add(mone);
+		maps.add(mtwo);
 		maps.add(tm);
 		
 		for(Map m : maps)
