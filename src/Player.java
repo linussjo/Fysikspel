@@ -138,7 +138,8 @@ public class Player extends PhysicRectangle {
 		super.setInAir(inAir);
 		BufferedImage img = null;
 		if(inAir && movingLeft){
-			Sound s = new Sound("", false);
+			Sound s = new Sound("sm64_mario_hoohoo.wav", true);
+			s.play();
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_JumpAndreasLeft.png").toUri()));
@@ -151,6 +152,8 @@ public class Player extends PhysicRectangle {
 		}
 		else if(inAir && movingRight)
 		{
+			Sound s = new Sound("sm64_mario_hoohoo.wav", true);
+			s.play();
 			try {
 			     img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	                    "data", "8-bit_JumpAndreasRight.png").toUri()));

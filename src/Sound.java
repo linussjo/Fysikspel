@@ -8,11 +8,6 @@ import javax.sound.sampled.LineUnavailableException;
 
 import sun.audio.*;
 
-/**
- * A simple Java sound file example (i.e., Java code to play a sound file).
- * AudioStream and AudioPlayer code comes from a javaworld.com example.
- * @author alvin alexander, devdaily.com.
- */
 public class Sound
 {
 	private Clip clip;
@@ -63,7 +58,8 @@ public class Sound
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					clip.start();
+					if(!clip.isActive())
+						clip.start();
 				}
 			}
 			
