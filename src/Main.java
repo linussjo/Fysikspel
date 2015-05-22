@@ -6,21 +6,20 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Sound s = new Sound("Star_Wars.wav", false);
+		Sound s = new Sound("Star_Wars.wav", true);
 		s.play();
-		Map tm = new TestMap();
+		
 		Map mone = new Map1();
 		Map mtwo = new Map2();
 		List<Map> maps = new ArrayList<Map>();
 		maps.add(mone);
 		maps.add(mtwo);
-		maps.add(tm);
-		
 		for(Map m : maps)
 		{
 			Game g = new Game();
 			g.loadMap(m);
 			g.runMap();
+			
 			while(!m.isDone())
 			{
 				try {
@@ -31,6 +30,7 @@ public class Main {
 				}
 			}
 			g.quit();
+			
 		}
 	}
 	

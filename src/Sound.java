@@ -35,35 +35,28 @@ public class Sound
 			// The wrapper thread is unnecessary, unless it blocks on the
 			// Clip finishing; see comments.
 			public void run() {
-				
-				if(loop)
-				{
-					try {
-						clip.open(is);
-					} catch (LineUnavailableException | IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					while(true)
-					{
-						if(!clip.isActive())
-							clip.start();
-					}
+				try {
+					clip.open(is);
+				} catch (LineUnavailableException | IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
-				else 
+				try
 				{
-					try {
-						clip.open(is);
-					} catch (LineUnavailableException | IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					if(!clip.isActive())
-						clip.start();
+					if(loop)
+						clip.loop(clip.LOOP_CONTINUOUSLY);
+					
+					clip.start();
 				}
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+					
 			}
 			
 		}).start();
+		System.out.println("s");
 	}
 
 	public void stop()
