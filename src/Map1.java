@@ -68,7 +68,7 @@ public class Map1 extends Map implements Notifiable {
 		this.addNode(ob2);
 		
 
-		Bow bow = new Bow("Andreas b�ge", 600, 169, 30, 30);
+		Bow bow = new Bow("Andreas båge", 600, 120, 30, 30);
 		this.addNode(bow);
 		
 		Door ob3 = new Door(100, 450, 50, 150, 0);
