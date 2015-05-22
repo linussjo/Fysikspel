@@ -4,6 +4,8 @@ import java.nio.file.FileSystems;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.Control;
+import javax.sound.sampled.FloatControl;
 import javax.sound.sampled.LineUnavailableException;
 
 import sun.audio.*;
@@ -12,6 +14,7 @@ public class Sound
 {
 	private Clip clip;
 	private boolean loop;
+	private float volume = 1f;
 	AudioInputStream is;
 	
 	public Sound(String file, boolean loop)
@@ -31,6 +34,7 @@ public class Sound
 	
 	public void play()
 	{
+
 		new Thread(new Runnable() {
 			// The wrapper thread is unnecessary, unless it blocks on the
 			// Clip finishing; see comments.
@@ -52,15 +56,21 @@ public class Sound
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				FloatControl v = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+				v.setValue(volume);
 					
 			}
 			
 		}).start();
-		System.out.println("s");
 	}
 
 	public void stop()
 	{
 		clip.stop();
+	}
+	
+	public void setVolume(Float volume)
+	{
+		this.volume = volume;
 	}
 }

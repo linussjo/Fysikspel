@@ -6,14 +6,18 @@ public class Main {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Sound s = new Sound("Star_Wars.wav", true);
-		s.play();
+		
 		
 		Map mone = new Map1();
 		Map mtwo = new Map2();
 		List<Map> maps = new ArrayList<Map>();
 		maps.add(mone);
 		maps.add(mtwo);
+		Sound s1 = new Sound("sm64_mario_thank_you.wav", false);
+		s1.play();
+		Sound s2 = new Sound("Star_Wars.wav", true);
+		s2.setVolume(-12f);
+		s2.play();
 		for(Map m : maps)
 		{
 			Game g = new Game();
@@ -29,6 +33,8 @@ public class Main {
 					e.printStackTrace();
 				}
 			}
+			Sound s3 = new Sound("smb_stage_clear.wav", false);
+			s3.play();
 			g.quit();
 			
 		}

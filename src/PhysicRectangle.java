@@ -107,7 +107,13 @@ public abstract class PhysicRectangle extends Rectangle {
 			if(pr.getCollideNumbers().contains(r.getColliderNumber()))
 			{
 				if(r.getColliderNumber() == Node.Collision.SOLIDOBSTACLE || r.getColliderNumber() == Node.Collision.BOINKOBSTACLE)
-				{      
+				{    
+					if(r.getColliderNumber() == Collision.BOINKOBSTACLE && !(this instanceof Player))
+					{
+						Sound s = new Sound("sm64_mario_boing.wav", false);
+						s.play();
+					}
+					
 					int y1 = pr.getOldPosition().y + pr.getHeight();
 					int y2 = pr.getOldPosition().y;
 					int y3 = pr.getPosition().y + pr.getHeight();
@@ -246,6 +252,7 @@ public abstract class PhysicRectangle extends Rectangle {
 					Map.physics.calculateElasticCollision(this, (PhysicRectangle)r);
 				}
 				return true;
+
 			}
 		}
 		this.didObjectIntersectWall = false;

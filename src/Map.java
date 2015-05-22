@@ -100,6 +100,9 @@ public abstract class Map {
 			a.applyVelocity(new Velocity(vx + player.getVelocity().getX(), -450 + player.getVelocity().getY()));
 
 			player.setHasShotArrow(true);
+			
+			Sound s = new Sound("smb_fireball.wav", false);
+			s.play();
 
 
 			AbstractAction doOneStep = new AbstractAction() {
@@ -130,6 +133,8 @@ public abstract class Map {
 			//dy = -tmpY;
 			if(!player.isInAir())
 			{
+				Sound s = new Sound("hoohoo.wav", false);
+				s.play();
 				player.setVelocity(new Velocity(player.getVelocity().getX(),-800));
 			}
 		}
