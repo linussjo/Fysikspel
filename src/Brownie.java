@@ -32,7 +32,10 @@ public class Brownie extends Item {
 
 	@Override
 	public void collide(Rectangle r, double updateTime) {
-		// TODO Auto-generated method stub
+		if(r instanceof Player && this.getReason() == Reason.MAP1BDONE)
+		{
+			this.notifyListerner();
+		}
 		
 	}
 }

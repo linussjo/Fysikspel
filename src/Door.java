@@ -55,6 +55,14 @@ public class Door extends Obstacle implements Notifiable{
 			this.setHasPhysics(true);
 		}
 		
+		else if(r == Reason.MAP1BARROW)
+		{
+			this.setHasPhysics(true);
+			this.setInAir(true);
+			this.setVelocity(new Velocity(0, -500));
+			this.setAcceleration(new Acceleration(0,-1500));
+		}
+		
 	}
 
 }

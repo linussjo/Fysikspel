@@ -8,7 +8,7 @@ public class Main {
 		// TODO Auto-generated method stub
 		
 		
-		Map mone = new Map1();
+		Map mone = new Map1b();
 		Map mtwo = new Map2();
 		List<Map> maps = new ArrayList<Map>();
 		maps.add(mone);

@@ -224,9 +224,7 @@ public class Player extends PhysicRectangle {
 		{
 			if(!this.getItemContainer().contains(r))
 			{
-				r.setShouldDraw(false);
-				this.addItem((Item)r);
-				r.setHasPhysics(false);
+				this.pickUpItem((Item)r);
 			}
 		}
 		else if(r.getColliderNumber() == Node.Collision.BUTTON)
@@ -234,5 +232,12 @@ public class Player extends PhysicRectangle {
 			r.setCollidable(false);
 		}
 		
+	}
+	
+	public void pickUpItem(Item i)
+	{
+		i.setShouldDraw(false);
+		this.addItem(i);
+		i.setHasPhysics(false);
 	}
 }

@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-public abstract class Map {
+public abstract class Map implements Notifiable{
 	
 	private boolean isDone;
 
@@ -196,6 +196,11 @@ public abstract class Map {
 			movingRight = val;
 			break;
 		}
+	}
+	
+	@Override
+	public void notify(Reason r) {
+		this.setDone(true);
 	}
 
 }

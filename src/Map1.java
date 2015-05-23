@@ -95,9 +95,4 @@ public class Map1 extends Map implements Notifiable {
 		
 	}
 
-	@Override
-	public void notify(Reason r) {
-		this.setDone(true);
-	}
-
 }
