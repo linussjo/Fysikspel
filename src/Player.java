@@ -240,4 +240,28 @@ public class Player extends PhysicRectangle {
 		this.addItem(i);
 		i.setHasPhysics(false);
 	}
+	
+	public void dropItem()
+	{
+		this.itemContainer.remove(this.activeItem);
+		this.activeItem.setShouldDraw(true);
+		
+		if(this.movingLeft)
+		{
+			this.activeItem.setVelocity(new Velocity(-350 + this.getVelocity().getX(), -200 + this.getVelocity().getY() - 60));
+			this.activeItem.setPosition(new Point(this.getPosition().x - 60, this.activeItem.getPosition().y));
+		}
+		else
+		{
+			this.activeItem.setVelocity(new Velocity(350 + this.getVelocity().getX(), -200 + this.getVelocity().getY() - 60));
+			this.activeItem.setPosition(new Point(this.getPosition().x + 60, this.activeItem.getPosition().y));
+		}
+		
+		this.activeItem.setHasPhysics(true);
+		
+		if(this.itemContainer.size() > 0)
+			this.activeItem = this.itemContainer.get(0);
+		else 
+			this.activeItem = null;
+	}
 }

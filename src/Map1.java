@@ -20,6 +20,10 @@ public class Map1 extends Map implements Notifiable {
 		Obstacle ob4 = new Obstacle(20, 450, 80, 50, 0);
 		ob4.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(ob4);
+		
+		Obstacle ob3 = new Obstacle(750, 300, 100, 20, 0);
+		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+		this.addNode(ob3);
 
 		Obstacle leftWall = new Obstacle(0, 0, 20, Component.HEIGHT-inventorySpace, 0.7f);
 		leftWall.setColor(Color.BLACK);
@@ -66,10 +70,6 @@ public class Map1 extends Map implements Notifiable {
 		Obstacle ob2 = new Obstacle(950, 350, 100, 20, 0);
 		ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(ob2);
-		
-		Obstacle ob3 = new Obstacle(750, 300, 100, 20, 0);
-		ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.addNode(ob3);
 		
 
 		Bow bow = new Bow("Andreas båge", 600, 120, 30, 30);

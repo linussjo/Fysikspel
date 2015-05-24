@@ -102,6 +102,17 @@ public class Component extends JComponent {
             }
         });
         
+        getInputMap().put(KeyStroke.getKeyStroke("R"), "R");
+        getActionMap().put("R", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(map.getPlayer().getItemContainer().size() > 0)
+                {
+                	map.getPlayer().dropItem();
+                }
+            }
+        });
+        
         getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "SPACE");
         getActionMap().put("SPACE", new AbstractAction() {
             @Override
@@ -114,14 +125,6 @@ public class Component extends JComponent {
             	}
             }
             	
-        });
-        
-        getInputMap().put(KeyStroke.getKeyStroke("ESCAPE"), "ESCAPE");
-        getActionMap().put("ESCAPE", new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-               
-            }
         });
         
 	    getInputMap().put(KeyStroke.getKeyStroke("UP"), "UP");
