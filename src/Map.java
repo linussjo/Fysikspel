@@ -203,4 +203,5 @@ public abstract class Map implements Notifiable{
 		this.setDone(true);
 	}
 
+	public abstract void startUp();
 }

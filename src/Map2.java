@@ -85,4 +85,9 @@ public class Map2 extends Map implements Notifiable {
 	public void notify(Reason r) {
 		this.setDone(true);
 	}
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
 }

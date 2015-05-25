@@ -17,17 +17,15 @@ public class Main {
 		maps.add(moneb);
 		maps.add(mtwo);
 		maps.add(mfin);
-		Sound s1 = new Sound("sm64_mario_thank_you.wav", false);
-		s1.play();
 		Sound s2 = new Sound("Star_Wars.wav", true);
-		s2.setVolume(-12f);
+		s2.setVolume(-7f);
 		s2.play();
 		for(Map m : maps)
 		{
 			Game g = new Game();
 			g.loadMap(m);
 			g.runMap();
-			
+			m.startUp();
 			while(!m.isDone())
 			{
 				try {

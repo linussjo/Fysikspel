@@ -72,7 +72,7 @@ public class Map1 extends Map implements Notifiable {
 		this.addNode(ob2);
 		
 
-		Bow bow = new Bow("Andreas bÃ¥ge", 600, 120, 30, 30);
+		Bow bow = new Bow("Andreas båge", 600, 120, 30, 30);
 		this.addNode(bow);
 		
 		Door door = new Door(100, 450, 50, 150, 0);
@@ -92,6 +92,12 @@ public class Map1 extends Map implements Notifiable {
 		doneButton.registerListerner(this);
 		this.addNode(doneButton);
 		
+		
+	}
+
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
 		
 	}
 

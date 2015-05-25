@@ -59,4 +59,10 @@ public class TestMap extends Map {
 		butt.registerListerner(ob1);
 	}
 
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
