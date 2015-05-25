@@ -11,13 +11,24 @@ public class MapFinish extends Map {
 
 	public MapFinish() {
 
-		super(new Point(1200, 550));
+		super(new Point(700, 550));
 		Map.physics = new Physics(2000);
-
+		
 		// Player setup
 		Bow b = new Bow("Andreas Båge", -111, -111, 35, 35);
 		this.addNode(b);
 		this.getPlayer().pickUpItem(b);
+		
+		Obstacle background = new Obstacle(300, 0, 750, 500, 1);
+		try {
+			BufferedImage img = ImageIO.read(new File(FileSystems.getDefault()
+					.getPath("data", "WinScreen.png").toUri()));
+			background.setImage(img);
+		} catch (IOException e) {
+			System.out.println("Image not found");
+		}
+		background.setCollidable(false);
+		this.addNode(background);
 
 		Obstacle floor = new Obstacle(0,
 				Component.HEIGHT - 20 - inventorySpace, Component.WIDTH, 20, 1);
@@ -43,19 +54,19 @@ public class MapFinish extends Map {
 		roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(roof);
 
-		Obstacle background = new Obstacle(0, 0, 1280, 720, 1);
-		try {
-			BufferedImage img = ImageIO.read(new File(FileSystems.getDefault()
-					.getPath("data", "WinScreen.png").toUri()));
-			background.setImage(img);
-		} catch (IOException e) {
-			System.out.println("Image not found");
-		}
-		this.addNode(background);
-
-		MoveableBox movebox = new MoveableBox(40, 500, 30, 30, 50);
+		MoveableBox movebox = new MoveableBox(400, 500, 30, 30, 1);
 		movebox.setColor(Color.BLUE);
+		movebox.setColliderNumber(Node.Collision.MOVABLEBOX);
+		this.addNode(movebox);
 
+	}
+
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		Sound s1 = new Sound("sm64_mario_thank_you.wav", false);
+		s1.play();
+		
 	}
 
 }

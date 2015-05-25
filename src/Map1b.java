@@ -33,23 +33,23 @@ public class Map1b extends Map{
 		this.getPlayer().pickUpItem(b);
 		
 		// Brownie door setup
-		Obstacle doorRoof = new Obstacle(20, 250, 80, 50, 0);
+		Obstacle doorRoof = new Obstacle(20, 200, 80, 50, 0);
 		doorRoof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
-		Obstacle doorFloor = new Obstacle(20, 400, 130, 50, 0);
+		Obstacle doorFloor = new Obstacle(20, 350, 130, 50, 0);
 		doorFloor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 
-		Door door = new Door(100, 250, 50, 150, 0);
+		Door door = new Door(100, 200, 50, 150, 0);
 		door.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		
-		Brownie br = new Brownie("Andreas Kladdkaka", 35 , 360, 30,30, 10f);
+		Brownie br = new Brownie("Andreas Kladdkaka", 35 , 310, 30,30, 10f);
 		this.addNode(br);
 		br.registerListerner(this);
 		br.setReason(Reason.MAP1BDONE);
 		
 		
 		// arrow shoot setup
-		Obstacle arrowRWall = new Obstacle(1245, 150, 25, 350, 0.9f);
+		Obstacle arrowRWall = new Obstacle(1245, 50, 25, 450, 0.9f);
 		Obstacle arrowLWall = new Obstacle(1045, 150, 25, 350, 0.9f);
 		Obstacle arrowFloor = new Obstacle(1045, 500, 225, 25, 0.9f);
 		
@@ -84,6 +84,12 @@ public class Map1b extends Map{
 		this.addNode(door);
 		this.addNode(rightWall);
 		this.addNode(leftWall);
+	}
+
+	@Override
+	public void startUp() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
