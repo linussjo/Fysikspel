@@ -260,7 +260,7 @@ public class Player extends PhysicRectangle {
 		this.activeItem.setHasPhysics(true);
 		
 		if(this.itemContainer.size() > 0)
-			this.activeItem = this.itemContainer.get(0);
+			this.setActiveItem(0);
 		else 
 			this.activeItem = null;
 	}
