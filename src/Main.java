@@ -11,10 +11,12 @@ public class Main {
 		Map mone = new Map1();
 		Map moneb = new Map1b();
 		Map mtwo = new Map2();
+		Map mfin = new MapFinish();
 		List<Map> maps = new ArrayList<Map>();
 		maps.add(mone);
 		maps.add(moneb);
 		maps.add(mtwo);
+		maps.add(mfin);
 		Sound s1 = new Sound("sm64_mario_thank_you.wav", false);
 		s1.play();
 		Sound s2 = new Sound("Star_Wars.wav", true);

@@ -5,5 +5,6 @@ public enum Reason {
 	MAP1DONE,
 	MAP1ARROW,
 	MAP1BARROW,
-	MAP1BDONE;
+	MAP1BDONE,
+	MAP2DONE;
 }

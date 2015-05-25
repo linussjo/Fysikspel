@@ -1,5 +1,7 @@
 import java.awt.Point;
 
+import javax.xml.bind.Marshaller.Listener;
+
 
 public class Obstacle extends PhysicRectangle{
 	public float boinkFactor;
@@ -28,7 +30,9 @@ public class Obstacle extends PhysicRectangle{
 
 	@Override
 	public void collide(Rectangle r, double updateTime) {
-
+		if(r instanceof Brownie){
+			notifyListerner();
+		}
 	}
 
 }
