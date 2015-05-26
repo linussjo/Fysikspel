@@ -62,11 +62,6 @@ public class Map1 extends Map implements Notifiable {
 		rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 		this.addNode(rightWall);
 		
-		Obstacle roof = new Obstacle(0, 0, Component.WIDTH, 20, 1);
-		roof.setColor(Color.WHITE);
-		roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		this.addNode(roof);
-		
 		Door hatch = new Door(490, 400, 230, 20, 0);
 		this.addNode(hatch);
 		hatch.setImage(woodImage);

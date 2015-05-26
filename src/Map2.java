@@ -84,11 +84,6 @@ public class Map2 extends Map implements Notifiable {
 	rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 	this.addNode(rightWall);
 	
-	Obstacle roof = new Obstacle(0, 0, Component.WIDTH, 20, 1);
-	roof.setColor(Color.WHITE);
-	roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-	this.addNode(roof);
-	
 	Obstacle backPack = new Obstacle(50,100,100,100,1);
 	try {
 	     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(

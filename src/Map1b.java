@@ -17,7 +17,6 @@ public class Map1b extends Map{
 		super(new Point(1200,550));
 		
 		// Screen boundries start
-		
 		Obstacle floor = new Obstacle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20, 1);
 		floor.setColor(Color.BLACK);
 		floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
@@ -29,14 +28,8 @@ public class Map1b extends Map{
 		Obstacle rightWall = new Obstacle(Component.WIDTH-20, 0, 20, Component.HEIGHT-inventorySpace, 1);
 		rightWall.setColor(Color.BLACK);
 		rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		
-		Obstacle roof = new Obstacle(0, 0, Component.WIDTH, 20, 1);
-		roof.setColor(Color.WHITE);
-		roof.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
-		
+
 		// Screen boundries end
-		
-		
 		try {
 		     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
 	               "data", "Platform.png").toUri()));
@@ -102,11 +95,10 @@ public class Map1b extends Map{
 		this.addNode(arrowButton);
 		
 		
-		//Floors / Roof
+		//Floors
 		this.addNode(doorFloor);
 		this.addNode(floor);
 		this.addNode(doorRoof);
-		this.addNode(roof);
 		this.addNode(arrowFloor);
 		this.addNode(playerPlatform1);
 		this.addNode(playerPlatform2);

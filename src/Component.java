@@ -33,7 +33,6 @@ public class Component extends JComponent {
         try {
 		     background  = ImageIO.read(new File(FileSystems.getDefault().getPath(
                    "data", "background.png").toUri()));
-		     System.out.println("read background");
        } catch (IOException e) {
            System.out.println("Image not found");
        }
