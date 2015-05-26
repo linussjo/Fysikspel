@@ -152,8 +152,8 @@ public abstract class Map implements Notifiable{
 			{
 				if(node1 == node2)
 					continue;
-
-				this.checkCollide(pr, node2, updateTime);
+				if(pr.isCollidable() && node2.isCollidable())
+					this.checkCollide(pr, node2, updateTime);
 			}
 		}
 		player.setDidPressSpace(false);
