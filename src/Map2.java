@@ -11,11 +11,29 @@ import javax.imageio.ImageIO;
 
 public class Map2 extends Map implements Notifiable {
 	
+	private BufferedImage dirtImage = null;
+	private BufferedImage woodImage = null;
+	
 	public Map2() {
 	
 	super(new Point(1190, 100));
 	
 	Map.physics = new Physics(2000);
+	
+	try {
+	     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+              "data", "Platform.png").toUri()));
+	     this.dirtImage = img;
+	} catch (IOException e) {
+      System.out.println("Image not found");
+  }
+	try {
+	     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
+              "data", "woodplatform.png").toUri()));
+	     this.woodImage = img;
+	} catch (IOException e) {
+      System.out.println("Image not found");
+  }
 	
 	// Player setup
 			Bow b = new Bow("Andreas Båge",-111,-111,35,35);
@@ -40,21 +58,25 @@ public class Map2 extends Map implements Notifiable {
 	Obstacle ob1 = new Obstacle(1180, 300, 80, 300, 1);
 	ob1.setColor(Color.BLUE);
 	ob1.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+	ob1.setImage(dirtImage);
 	this.addNode(ob1);
 	
 	Obstacle ob2 = new Obstacle(1100, 450, 80, 150, 1);
 	ob2.setColor(Color.BLUE);
 	ob2.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+	ob2.setImage(dirtImage);
 	this.addNode(ob2);
 	
 	Obstacle ob3 = new Obstacle(1020, 550, 80, 50, 1);
 	ob3.setColor(Color.BLUE);
 	ob3.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
+	ob3.setImage(dirtImage);
 	this.addNode(ob3);
 	
 	Obstacle bounce = new Obstacle(620, 400, 80, 20, 1);
 	bounce.setColor(Color.RED);
 	bounce.setColliderNumber(Node.Collision.BOINKOBSTACLE);
+	bounce.setImage(woodImage);
 	this.addNode(bounce);
 	
 	Obstacle rightWall = new Obstacle(Component.WIDTH-20, 0, 20, Component.HEIGHT-inventorySpace, 1);
