@@ -1,4 +1,9 @@
-
+/**
+ * Handerar och räknar ut de hastigheter som finns i spelet.
+ * 
+ * @author BG5
+ *
+ */
 public class Velocity {
 	
 	private float x;
@@ -17,6 +22,7 @@ public class Velocity {
 		return y;
 	}
 	
+	//Räknar ut nya hastigheter.
 	public static Velocity combineVelocities(Velocity v1, Velocity v2){
 		
 		float combinedX = v1.getX() + v2.getX();

@@ -5,7 +5,11 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * Håller koll på vilket håll bågen ska hållas ut.
+ * @author BG5
+ *
+ */
 public class Bow extends Item {
 
 	public Bow(String name, int x, int y, int width, int height) {

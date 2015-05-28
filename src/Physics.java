@@ -31,7 +31,7 @@ public class Physics {
 		n.translatePosition(x, y);
 	}
 	
-	
+	//Kalkylerar nya hastigeten i Y-led.
 	public float calculateYVelocity(PhysicRectangle n, double time)
 	{
 		float vy = (float) (n.getVelocity().getY() + this.gravitation*time + n.getAcceleration().getY()*time);
@@ -42,6 +42,7 @@ public class Physics {
 		return vy;
 	}
 	
+	//Kalkylerar nya hastiheten i X-led.
 	public float calculateXVelocity(PhysicRectangle n, double time)
 	{
 		float vx = (float)(n.getVelocity().getX() + n.getAcceleration().getX()*time);
@@ -65,6 +66,7 @@ public class Physics {
 		return vx;
 	}
 	
+	//Beräkningar av elastiska kollisioner.
 	public void calculateElasticCollision(PhysicRectangle r1, PhysicRectangle r2)
 	{
 		double m1 = r1.getMass();

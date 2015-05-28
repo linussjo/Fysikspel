@@ -15,6 +15,11 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
+/**
+ * Innehåller generella saker som måste finnas med i alla banor.
+ * @author BG5
+ *
+ */
 public abstract class Map implements Notifiable{
 	
 	private boolean isDone;

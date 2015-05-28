@@ -2,7 +2,11 @@ import java.awt.Point;
 
 import javax.xml.bind.Marshaller.Listener;
 
-
+/**
+ * Vad ett obstacle för egenskaper ett obstacle har.
+ * @author Per
+ *
+ */
 public class Obstacle extends PhysicRectangle{
 	public float boinkFactor;
 	

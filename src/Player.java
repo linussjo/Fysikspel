@@ -8,6 +8,11 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Vad spelaren ska ha för egenskaper.
+ * @author BG5
+ *
+ */
 public class Player extends PhysicRectangle {
 	
 	private boolean didPressSpace;
@@ -131,6 +136,7 @@ public class Player extends PhysicRectangle {
 	}
 
 	/**
+	 * Vad som ska ske då en spelare är i luften.
 	 * @param inAir
 	 *            the inAir to set
 	 */
@@ -164,6 +170,8 @@ public class Player extends PhysicRectangle {
 			whichDirectionImage(movingLeft, movingRight);
 		}
 	}
+	//Håller reda på vilken bild som ska visas beroende på om spelaren är 
+	//vänd åt vänster eller höger.
 	public void whichDirectionImage(boolean movingLeft, boolean movingRight){
 		BufferedImage img = null;
 		this.movingLeft = movingLeft;
@@ -233,14 +241,14 @@ public class Player extends PhysicRectangle {
 		}
 		
 	}
-	
+	//Vad som händer när man tar upp ett föremål.
 	public void pickUpItem(Item i)
 	{
 		i.setShouldDraw(false);
 		this.addItem(i);
 		i.setHasPhysics(false);
 	}
-	
+	//Vad som händer när man slänger iväg sitt föremål.
 	public void dropItem()
 	{
 		this.itemContainer.remove(this.activeItem);

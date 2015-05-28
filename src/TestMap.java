@@ -2,7 +2,11 @@ import java.awt.Color;
 import java.awt.Point;
 
 
-
+/**
+ * Testbana som användes under ett tidigt Alpha-stadie av spelet.
+ * @author Per
+ *
+ */
 public class TestMap extends Map {
 	
 	public TestMap()

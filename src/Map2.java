@@ -8,7 +8,11 @@ import java.util.prefs.BackingStoreException;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * Andra banan av spelet.
+ * @author BG5
+ *
+ */
 public class Map2 extends Map implements Notifiable {
 	
 	private BufferedImage dirtImage = null;
@@ -44,6 +48,8 @@ public class Map2 extends Map implements Notifiable {
 			this.addNode(br);
 			this.getPlayer().pickUpItem(br);
 	
+	//Sätter ut hindren och de olika föremålen på banan.
+			
 	Obstacle floor = new Obstacle(0, Component.HEIGHT-20-inventorySpace, Component.WIDTH, 20, 1);
 	floor.setColor(Color.BLACK);
 	floor.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
@@ -84,7 +90,7 @@ public class Map2 extends Map implements Notifiable {
 	rightWall.setColliderNumber(Node.Collision.SOLIDOBSTACLE);
 	this.addNode(rightWall);
 	
-	Obstacle backPack = new Obstacle(50,100,100,100,1);
+	Obstacle backPack = new Obstacle(50,100,100,150,1);
 	try {
 	     BufferedImage img  = ImageIO.read(new File(FileSystems.getDefault().getPath(
                "data", "Backpack.png").toUri()));
@@ -98,10 +104,12 @@ public class Map2 extends Map implements Notifiable {
 	this.addNode(backPack);
 	
 }
+	//Metod för att se när banan är avklarad.
 	@Override
 	public void notify(Reason r) {
 		this.setDone(true);
 	}
+	//Specialkommando för när vissa banor startar.
 	@Override
 	public void startUp() {
 		// TODO Auto-generated method stub

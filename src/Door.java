@@ -1,6 +1,10 @@
 import java.awt.Point;
 
-
+/**
+ * Vad som händer när en dörr aktiveras.
+ * @author BG5
+ *
+ */
 public class Door extends Obstacle implements Notifiable{
 
 	public Door(int x, int y, int width, int height, float mass) {

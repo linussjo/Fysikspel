@@ -1,7 +1,11 @@
 import java.awt.Point;
 
 
-
+/**
+ * Hur en rörlig box ska bete sig.
+ * @author BG5
+ *
+ */
 public class MoveableBox extends PhysicRectangle {
 
 	public MoveableBox(int x, int y, int width, int height, float mass) {

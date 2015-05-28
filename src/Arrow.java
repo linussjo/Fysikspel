@@ -9,7 +9,12 @@ import java.nio.file.FileSystems;
 import javax.imageio.ImageIO;
 
 
-
+/**
+ * Klass för att för hur pilen ska ritas ut 
+ * och vad den ska kollidera med.
+ * @author BG5
+ *
+ */
 public class Arrow extends PhysicRectangle {
 	private double rotate;
 	public Arrow(Item bow) {

@@ -7,6 +7,12 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
+/**
+ * Sista "banan" där man kan springa runt och skjuta på en kub.
+ * 
+ * @author BG5
+ *
+ */
 public class MapFinish extends Map {
 
 	public MapFinish() {
@@ -30,6 +36,7 @@ public class MapFinish extends Map {
 		background.setCollidable(false);
 		this.addNode(background);
 
+		//Placerar ut föremålen på banan.
 		Obstacle floor = new Obstacle(0,
 				Component.HEIGHT - 20 - inventorySpace, Component.WIDTH, 20, 1);
 		floor.setColor(Color.BLACK);

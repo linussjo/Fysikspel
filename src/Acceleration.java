@@ -37,7 +37,10 @@ public class Acceleration {
 	{
 		return this.y;
 	}
-	
+	/**
+	 * Combines the new acceleration.
+	 * @param acc
+	 */
 	public void combine(Acceleration acc)
 	{
 		this.x += acc.getX();

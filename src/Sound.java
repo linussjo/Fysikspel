@@ -10,6 +10,11 @@ import javax.sound.sampled.LineUnavailableException;
 
 import sun.audio.*;
 
+/**
+ * Huvudklassen för att hantera och spela upp ljud.
+ * @author BG5
+ *
+ */
 public class Sound
 {
 	private Clip clip;

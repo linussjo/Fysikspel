@@ -7,7 +7,11 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * Håller koll på vad som händer kladdkakan.
+ * @author BG5
+ *
+ */
 public class Brownie extends Item {
 
 	public Brownie(String name, int x, int y, int width, int height, float mass) {

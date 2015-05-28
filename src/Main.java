@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Skapar en ny instans av spelet och talar om vilka banor som ska vara med.
+ * Lägger till bakgrundsmusiken i spelet.
+ * @author BG5
+ *
+ */
 public class Main {
 
 	public static void main(String[] args) {

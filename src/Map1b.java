@@ -7,7 +7,11 @@ import java.nio.file.FileSystems;
 
 import javax.imageio.ImageIO;
 
-
+/**
+ * Andra banan.
+ * @author BG5
+ *
+ */
 public class Map1b extends Map{
 
 	private BufferedImage dirtImage = null;

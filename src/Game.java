@@ -10,7 +10,12 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-
+/**
+ * Ny version av spelet.
+ * Håller koll på uppdateringsfrekvenser och tid i spelet.
+ * @author BG5
+ *
+ */
 public class Game extends JFrame {
 	
 	private double lastUpdate;

@@ -5,7 +5,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+/**
+ * Abstrakt klass vad allt som är en nod måste innehålla.
+ * @author BG5
+ *
+ */
 public abstract class Node {
 	
 	private boolean shouldDraw = true;
